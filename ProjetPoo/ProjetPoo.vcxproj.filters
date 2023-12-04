@@ -18,5 +18,16 @@
     <ClInclude Include="data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SignInUp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SignInUp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
