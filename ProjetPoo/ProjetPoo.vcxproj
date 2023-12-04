@@ -114,7 +114,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="data.h" />
-    <ClInclude Include="SignInUp.h">
+    <ClInclude Include="SignUp.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
@@ -126,12 +126,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SignInUp.cpp" />
+    <ClCompile Include="SignUp.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SignInUp.resx">
-      <DependentUpon>SignInUp.h</DependentUpon>
+    <EmbeddedResource Include="SignUp.resx">
+      <DependentUpon>SignUp.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
