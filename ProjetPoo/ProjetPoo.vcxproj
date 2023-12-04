@@ -117,6 +117,7 @@
     <ClInclude Include="SignUp.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="SqlHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -128,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="SignUp.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="SqlHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SignUp.resx">

@@ -2,46 +2,48 @@
 #include <iostream>
 
 
-using namespace std;
+using namespace System;
 
 namespace data {
 
-    struct Adresse {
+    ref struct Adresse {
 
         int numero;
-        string ville;
-        string codePostal;
+        String ^ ville;
+        String ^ codePostal;
     };
 
-    struct Client {
-        string nomCl;
-        string prenomCl;
-        string dateNa;
+    ref struct Client {
+        String ^ nomCl;
+        String ^ prenomCl;
+        String ^ dateNa;
+        String^ Mail;
+        String^ Mail2;
         Adresse adresseFacturation;
         Adresse adresseLivraison;
-        string societe;
+        String ^ societe;
     };
 
-    struct Personnel {
+    ref struct Personnel {
 
-        string nomP;
-        string prenomP;
-        string dateEm;
-        string superviseur;
+        String ^ nomP;
+        String ^ prenomP;
+        String ^ dateEm;
+        String ^ superviseur;
         Adresse adresse;
     };
 
-    struct Commande {
+    ref struct Commande {
 
-        string refCom;
-        string dateliv;
+        String ^ refCom;
+        String ^ dateliv;
         int total;
-        string dateemision;
+        String ^ dateemision;
     };
 
-    struct Article {
+    ref struct Article {
 
-        string nomArt;
+        String ^ nomArt;
         int stock;
         float seuilReap;
         float prixHT;
