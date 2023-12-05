@@ -1,5 +1,6 @@
 #pragma once
-#include"data.h"
+#include "data.h"
+#include "Code.h"
 using namespace System::Data::SqlClient;
 ref class SqlHandler
 {
@@ -9,6 +10,7 @@ private:
 	SqlDataAdapter^ Adapter;
 public:
 	SqlHandler();
+	~SqlHandler();
 	void CreateClient(data::Client ^ Cl);
 
 

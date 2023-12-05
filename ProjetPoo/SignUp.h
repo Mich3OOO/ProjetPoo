@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "SqlHandler.h"
 
 namespace ProjetPoo {
 
@@ -18,6 +19,7 @@ namespace ProjetPoo {
 		SignUp(void)
 		{
 			InitializeComponent();
+			this->sql = (gcnew SqlHandler());
 			//
 			//TODO: Add the constructor code here
 			//
@@ -53,6 +55,7 @@ namespace ProjetPoo {
 	private: System::Windows::Forms::TextBox^ TbDateNais;
 	private: System::Windows::Forms::TextBox^ TbSociete;
 	private: System::Windows::Forms::Button^ BtCreate;
+	private: System::Windows::Forms::Label^ LaError;
 
 
 
@@ -67,6 +70,8 @@ namespace ProjetPoo {
 		/// Required designer variable.
 		/// </summary>
 		System::ComponentModel::Container ^components;
+		SqlHandler^ sql;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -75,6 +80,7 @@ namespace ProjetPoo {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			
 			this->Labelmail = (gcnew System::Windows::Forms::Label());
 			this->LaMotDePasse = (gcnew System::Windows::Forms::Label());
 			this->LaConfirmerMotDePasse = (gcnew System::Windows::Forms::Label());
@@ -90,6 +96,7 @@ namespace ProjetPoo {
 			this->TbDateNais = (gcnew System::Windows::Forms::TextBox());
 			this->TbSociete = (gcnew System::Windows::Forms::TextBox());
 			this->BtCreate = (gcnew System::Windows::Forms::Button());
+			this->LaError = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// Labelmail
@@ -214,11 +221,24 @@ namespace ProjetPoo {
 			this->BtCreate->UseVisualStyleBackColor = true;
 			this->BtCreate->Click += gcnew System::EventHandler(this, &SignUp::BtCreate_Click);
 			// 
+			// LaError
+			// 
+			this->LaError->AutoSize = true;
+			this->LaError->BackColor = System::Drawing::SystemColors::Control;
+			this->LaError->ForeColor = System::Drawing::Color::Red;
+			this->LaError->Location = System::Drawing::Point(592, 480);
+			this->LaError->Name = L"LaError";
+			this->LaError->Size = System::Drawing::Size(35, 13);
+			this->LaError->TabIndex = 15;
+			this->LaError->Text = L"label1";
+			this->LaError->Visible = false;
+			// 
 			// SignUp
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1280, 720);
+			this->Controls->Add(this->LaError);
 			this->Controls->Add(this->BtCreate);
 			this->Controls->Add(this->TbSociete);
 			this->Controls->Add(this->TbDateNais);
@@ -246,7 +266,15 @@ namespace ProjetPoo {
 	}
 	private: System::Void BtCreate_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		Labelmail->Text = TbMail->Text;
+		data::Client^ cl = gcnew data::Client;
+		cl->nomCl = TbNom->Text;
+		cl->prenomCl = TbPrenom->Text;
+		cl->dateNa = TbDateNais->Text;
+		cl->Mail = TbMail->Text;
+		cl->MotDePasse = TbMotDePasse->Text;
+		cl->societe = TbSociete->Text;
+		sql->CreateClient(cl);
+		
 	}
 };
 }

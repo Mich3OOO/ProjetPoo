@@ -18,7 +18,7 @@ namespace data {
         String ^ prenomCl;
         String ^ dateNa;
         String^ Mail;
-        String^ Mail2;
+        String^ MotDePasse;
         Adresse adresseFacturation;
         Adresse adresseLivraison;
         String ^ societe;
@@ -51,3 +51,22 @@ namespace data {
     };
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ʕ•ᴥ•ʔ
+*/
