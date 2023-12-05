@@ -20,6 +20,7 @@ namespace ProjetPoo {
 		{
 			InitializeComponent();
 			this->sql = (gcnew SqlHandler());
+			cl = gcnew data::Client;
 			//
 			//TODO: Add the constructor code here
 			//
@@ -53,7 +54,7 @@ namespace ProjetPoo {
 
 	private: System::Windows::Forms::TextBox^ TbMail;
 	private: System::Windows::Forms::TextBox^ TbDateNais;
-	private: System::Windows::Forms::TextBox^ TbSociete;
+
 	private: System::Windows::Forms::Button^ BtCreate;
 	private: System::Windows::Forms::Label^ LaError;
 
@@ -66,11 +67,21 @@ namespace ProjetPoo {
 	protected:
 
 	private:
+
+		data::Client^ cl;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		System::ComponentModel::Container ^components;
-		SqlHandler^ sql;
+	private: System::Windows::Forms::Button^ BtDebug;
+	private: System::Windows::Forms::Label^ LaDebug;
+	private: System::Windows::Forms::ComboBox^ CbSociete;
+
+
+
+
+
+		   SqlHandler^ sql;
 
 
 #pragma region Windows Form Designer generated code
@@ -93,15 +104,17 @@ namespace ProjetPoo {
 			this->TbMotDePasse = (gcnew System::Windows::Forms::TextBox());
 			this->TbMail = (gcnew System::Windows::Forms::TextBox());
 			this->TbDateNais = (gcnew System::Windows::Forms::TextBox());
-			this->TbSociete = (gcnew System::Windows::Forms::TextBox());
 			this->BtCreate = (gcnew System::Windows::Forms::Button());
 			this->LaError = (gcnew System::Windows::Forms::Label());
+			this->BtDebug = (gcnew System::Windows::Forms::Button());
+			this->LaDebug = (gcnew System::Windows::Forms::Label());
+			this->CbSociete = (gcnew System::Windows::Forms::ComboBox());
 			this->SuspendLayout();
 			// 
 			// LaMail
 			// 
 			this->LaMail->AutoSize = true;
-			this->LaMail->Location = System::Drawing::Point(555, 96);
+			this->LaMail->Location = System::Drawing::Point(477, 100);
 			this->LaMail->Name = L"LaMail";
 			this->LaMail->Size = System::Drawing::Size(32, 13);
 			this->LaMail->TabIndex = 0;
@@ -110,7 +123,7 @@ namespace ProjetPoo {
 			// LaMotDePasse
 			// 
 			this->LaMotDePasse->AutoSize = true;
-			this->LaMotDePasse->Location = System::Drawing::Point(510, 136);
+			this->LaMotDePasse->Location = System::Drawing::Point(432, 140);
 			this->LaMotDePasse->Name = L"LaMotDePasse";
 			this->LaMotDePasse->Size = System::Drawing::Size(77, 13);
 			this->LaMotDePasse->TabIndex = 1;
@@ -119,7 +132,7 @@ namespace ProjetPoo {
 			// LaConfirmerMotDePasse
 			// 
 			this->LaConfirmerMotDePasse->AutoSize = true;
-			this->LaConfirmerMotDePasse->Location = System::Drawing::Point(453, 173);
+			this->LaConfirmerMotDePasse->Location = System::Drawing::Point(375, 177);
 			this->LaConfirmerMotDePasse->Name = L"LaConfirmerMotDePasse";
 			this->LaConfirmerMotDePasse->Size = System::Drawing::Size(134, 13);
 			this->LaConfirmerMotDePasse->TabIndex = 2;
@@ -128,7 +141,7 @@ namespace ProjetPoo {
 			// LaNom
 			// 
 			this->LaNom->AutoSize = true;
-			this->LaNom->Location = System::Drawing::Point(552, 210);
+			this->LaNom->Location = System::Drawing::Point(474, 214);
 			this->LaNom->Name = L"LaNom";
 			this->LaNom->Size = System::Drawing::Size(35, 13);
 			this->LaNom->TabIndex = 3;
@@ -138,7 +151,7 @@ namespace ProjetPoo {
 			// 
 			this->LaDateNais->AutoSize = true;
 			this->LaDateNais->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->LaDateNais->Location = System::Drawing::Point(414, 285);
+			this->LaDateNais->Location = System::Drawing::Point(336, 289);
 			this->LaDateNais->Name = L"LaDateNais";
 			this->LaDateNais->Size = System::Drawing::Size(173, 13);
 			this->LaDateNais->TabIndex = 4;
@@ -147,7 +160,7 @@ namespace ProjetPoo {
 			// LaSociete
 			// 
 			this->LaSociete->AutoSize = true;
-			this->LaSociete->Location = System::Drawing::Point(538, 327);
+			this->LaSociete->Location = System::Drawing::Point(460, 331);
 			this->LaSociete->Name = L"LaSociete";
 			this->LaSociete->Size = System::Drawing::Size(49, 13);
 			this->LaSociete->TabIndex = 5;
@@ -156,7 +169,7 @@ namespace ProjetPoo {
 			// LaPrenom
 			// 
 			this->LaPrenom->AutoSize = true;
-			this->LaPrenom->Location = System::Drawing::Point(538, 242);
+			this->LaPrenom->Location = System::Drawing::Point(460, 246);
 			this->LaPrenom->Name = L"LaPrenom";
 			this->LaPrenom->Size = System::Drawing::Size(49, 13);
 			this->LaPrenom->TabIndex = 6;
@@ -164,54 +177,47 @@ namespace ProjetPoo {
 			// 
 			// TbPrenom
 			// 
-			this->TbPrenom->Location = System::Drawing::Point(593, 242);
+			this->TbPrenom->Location = System::Drawing::Point(515, 246);
 			this->TbPrenom->Name = L"TbPrenom";
 			this->TbPrenom->Size = System::Drawing::Size(129, 20);
 			this->TbPrenom->TabIndex = 11;
 			// 
 			// TbNom
 			// 
-			this->TbNom->Location = System::Drawing::Point(593, 210);
+			this->TbNom->Location = System::Drawing::Point(515, 214);
 			this->TbNom->Name = L"TbNom";
 			this->TbNom->Size = System::Drawing::Size(129, 20);
 			this->TbNom->TabIndex = 10;
 			// 
 			// TbConfirmerMotDePasse
 			// 
-			this->TbConfirmerMotDePasse->Location = System::Drawing::Point(593, 173);
+			this->TbConfirmerMotDePasse->Location = System::Drawing::Point(515, 177);
 			this->TbConfirmerMotDePasse->Name = L"TbConfirmerMotDePasse";
 			this->TbConfirmerMotDePasse->Size = System::Drawing::Size(129, 20);
 			this->TbConfirmerMotDePasse->TabIndex = 9;
 			// 
 			// TbMotDePasse
 			// 
-			this->TbMotDePasse->Location = System::Drawing::Point(593, 136);
+			this->TbMotDePasse->Location = System::Drawing::Point(515, 140);
 			this->TbMotDePasse->Name = L"TbMotDePasse";
 			this->TbMotDePasse->Size = System::Drawing::Size(129, 20);
 			this->TbMotDePasse->TabIndex = 8;
 			// 
 			// TbMail
 			// 
-			this->TbMail->Location = System::Drawing::Point(593, 96);
+			this->TbMail->Location = System::Drawing::Point(515, 100);
 			this->TbMail->Name = L"TbMail";
 			this->TbMail->Size = System::Drawing::Size(274, 20);
 			this->TbMail->TabIndex = 7;
 			// 
 			// TbDateNais
 			// 
-			this->TbDateNais->Location = System::Drawing::Point(593, 285);
+			this->TbDateNais->Location = System::Drawing::Point(515, 289);
 			this->TbDateNais->MaxLength = 10;
 			this->TbDateNais->Name = L"TbDateNais";
 			this->TbDateNais->Size = System::Drawing::Size(63, 20);
 			this->TbDateNais->TabIndex = 12;
 			this->TbDateNais->TextChanged += gcnew System::EventHandler(this, &SignUp::TbDateNais_TextChanged);
-			// 
-			// TbSociete
-			// 
-			this->TbSociete->Location = System::Drawing::Point(593, 327);
-			this->TbSociete->Name = L"TbSociete";
-			this->TbSociete->Size = System::Drawing::Size(100, 20);
-			this->TbSociete->TabIndex = 13;
 			// 
 			// BtCreate
 			// 
@@ -228,21 +234,53 @@ namespace ProjetPoo {
 			this->LaError->AutoSize = true;
 			this->LaError->BackColor = System::Drawing::SystemColors::Control;
 			this->LaError->ForeColor = System::Drawing::Color::Red;
-			this->LaError->Location = System::Drawing::Point(592, 480);
+			this->LaError->Location = System::Drawing::Point(512, 496);
 			this->LaError->Name = L"LaError";
 			this->LaError->Size = System::Drawing::Size(54, 13);
 			this->LaError->TabIndex = 15;
 			this->LaError->Text = L"Error label";
 			this->LaError->Visible = false;
 			// 
+			// BtDebug
+			// 
+			this->BtDebug->Location = System::Drawing::Point(963, 321);
+			this->BtDebug->Name = L"BtDebug";
+			this->BtDebug->Size = System::Drawing::Size(75, 23);
+			this->BtDebug->TabIndex = 16;
+			this->BtDebug->Text = L"Debug";
+			this->BtDebug->UseVisualStyleBackColor = true;
+			this->BtDebug->Click += gcnew System::EventHandler(this, &SignUp::button1_Click);
+			// 
+			// LaDebug
+			// 
+			this->LaDebug->AutoSize = true;
+			this->LaDebug->Location = System::Drawing::Point(963, 259);
+			this->LaDebug->Name = L"LaDebug";
+			this->LaDebug->Size = System::Drawing::Size(51, 13);
+			this->LaDebug->TabIndex = 17;
+			this->LaDebug->Text = L"LaDebug";
+			// 
+			// CbSociete
+			// 
+			this->CbSociete->CausesValidation = false;
+			this->CbSociete->FormattingEnabled = true;
+			this->CbSociete->Location = System::Drawing::Point(515, 331);
+			this->CbSociete->Name = L"CbSociete";
+			this->CbSociete->Size = System::Drawing::Size(129, 21);
+			this->CbSociete->TabIndex = 18;
+			this->CbSociete->TextChanged += gcnew System::EventHandler(this, &SignUp::CbSociete_TextChanged);
+			//this->CbSociete->
+			// 
 			// SignUp
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1280, 720);
+			this->Controls->Add(this->CbSociete);
+			this->Controls->Add(this->LaDebug);
+			this->Controls->Add(this->BtDebug);
 			this->Controls->Add(this->LaError);
 			this->Controls->Add(this->BtCreate);
-			this->Controls->Add(this->TbSociete);
 			this->Controls->Add(this->TbDateNais);
 			this->Controls->Add(this->TbMail);
 			this->Controls->Add(this->TbMotDePasse);
@@ -337,8 +375,8 @@ namespace ProjetPoo {
 			cl->dateNa = TbDateNais->Text;
 			cl->Mail = TbMail->Text;
 			cl->MotDePasse = TbMotDePasse->Text;
-			cl->societe = TbSociete->Text;
-			sql->CreateClient(cl);
+			//cl->societe = CbSociete->Text;
+			sql->EnterData("insert into Client(nomCl,prenomCl,dateNa,mailCl,verifiCl) values('" + cl->nomCl + "','" + cl->prenomCl + "','" + cl->dateNa + "','" + cl->Mail + "','" + Code::CodeBin(cl->Mail, cl->MotDePasse) + "');");
 			 
 			this->Close();
 
@@ -347,20 +385,62 @@ namespace ProjetPoo {
 		
 		
 	}
-	private: System::Void TbDateNais_TextChanged(System::Object^ sender, System::EventArgs^ e) 
+	private: System::Void TbDateNais_TextChanged(System::Object^ sender, System::EventArgs^ e)
 	{
-		if ((TbDateNais->Text->Length == 2|| TbDateNais->Text->Length == 5)&& TbDateNais->Text[TbDateNais->Text->Length-1]!='-')
+		if ((TbDateNais->Text->Length == 2 || TbDateNais->Text->Length == 5) && TbDateNais->Text[TbDateNais->Text->Length - 1] != '-')
 		{
-
+			
 			TbDateNais->Text += "-";
 			TbDateNais->Select(TbDateNais->Text->Length, 0);
-			
+
 		}
 		if (TbDateNais->Text->Length == 3 || TbDateNais->Text->Length == 6)
 		{
 			TbDateNais->Select(TbDateNais->Text->Length, 0);
 		}
+	}
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
 
+		array<array<String^>^>^ reader = sql->GetData("Select NomSo from Société where NomSo like '%"+ CbSociete->Text +"%'");
+		LaDebug->Text = reader[0][1];
+
+		for (int i = 0; i < reader->Length; i++)
+		{
+			CbSociete->Items->Add(reader[i][0]);
+		}
+	}
+		
+	private: System::Void CbSociete_TextChanged(System::Object^ sender, System::EventArgs^ e)
+	{
+		LaDebug->Text = ""+ CbSociete->SelectedIndex;
+		CbSociete->Items->Clear();
+		CbSociete->Items->Add(CbSociete->Text);
+		CbSociete->Select(TbDateNais->Text->Length, 0);
+
+		if (CbSociete->Text->Length > 3 && CbSociete->SelectedIndex == -1)
+		{
+			
+			
+			array<array<String^>^>^ reader = sql->GetData("Select NomSo from Société where NomSo like '%" + CbSociete->Text + "%'");
+			if (reader->Length > 0)
+			{
+				
+				LaDebug->Text = reader[0][0];
+
+				for (int i = 0; i < reader->Length; i++)
+				{
+					CbSociete->Items->Add(reader[i][0]);
+				}
+				//CbSociete->DroppedDown = true;
+
+			}
+			
+			CbSociete->Select(CbSociete->Text->Length, 0);
+
+			
+
+		}
 	}
 };
 }

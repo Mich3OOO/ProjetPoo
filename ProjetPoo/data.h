@@ -21,7 +21,7 @@ namespace data {
         String^ MotDePasse;
         Adresse adresseFacturation;
         Adresse adresseLivraison;
-        String ^ societe;
+        int ^ societe;
     };
 
     ref struct Personnel {
