@@ -6,8 +6,9 @@ ref class SqlHandler
 {
 private:
 	SqlConnection^ Connection;
-	
 	SqlDataAdapter^ Adapter;
+
+
 public:
 	SqlHandler();
 	~SqlHandler();
