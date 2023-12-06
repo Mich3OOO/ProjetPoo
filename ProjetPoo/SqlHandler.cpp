@@ -61,6 +61,12 @@ array<array<String^>^>^ SqlHandler::DataToStr(SqlDataReader^ reader)
 	}
 	return l->ToArray();
 }
+
+String^ SqlHandler::GetOneData(String^ Querry, int i, int j)
+{
+	return GetData(Querry)[i][j];
+}
+
 /*
 ____
 |M   |

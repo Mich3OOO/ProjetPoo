@@ -18,7 +18,7 @@ public:
 	void EnterData(String^ Querry);
 
 	array<array<String^>^>^ GetData(String^ Querry);
-	
+	String^ GetOneData(String^ Querry, int i,int j);
 
 
 };
