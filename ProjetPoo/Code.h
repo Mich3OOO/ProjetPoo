@@ -8,4 +8,24 @@ public:
 	static String^ DeCodeBin(String^ msg, String^ key);
 };
 
-//jjj
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+____
+|M   |
+|(\/)|
+| \/ |
+|   M|
+`----`
+*/

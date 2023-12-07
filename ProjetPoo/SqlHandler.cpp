@@ -31,16 +31,22 @@ void SqlHandler::EnterData(String^ Querry)
 array<array<String^>^>^ SqlHandler::GetData(String^ Querry)
 {
 	
-	
+	if (Connection->State == System::Data::ConnectionState::Open)
+	{
+		Connection->Close();
+	}
 	//System::String^ querry = "Select * from " + Tab + ";";
 	
 	SqlCommand^ Command = gcnew SqlCommand(Querry, Connection);
-	
+	array<array<String^>^>^ r;
 	Connection->Open();
-	SqlDataReader^ reader = Command->ExecuteReader();
 	
-	array<array<String^>^>^ r = DataToStr(reader);
+	SqlDataReader^ reader = Command->ExecuteReader();
+	r = DataToStr(reader);
 	Connection->Close();
+	
+	
+	
 	
 	return r;
 }
@@ -66,6 +72,17 @@ String^ SqlHandler::GetOneData(String^ Querry, int i, int j)
 {
 	return GetData(Querry)[i][j];
 }
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 ____

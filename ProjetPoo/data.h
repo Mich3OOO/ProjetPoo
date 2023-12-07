@@ -9,8 +9,8 @@ namespace data {
     ref struct Adresse {
 
         int numero;
-        String ^ ville;
-        String ^ codePostal;
+        int idnomRue;
+        int idcodePostal;
     };
 
     ref struct Client {
@@ -19,8 +19,8 @@ namespace data {
         String ^ dateNa;
         String^ Mail;
         String^ MotDePasse;
-        Adresse adresseFacturation;
-        Adresse adresseLivraison;
+        System::Collections::Generic::List<Adresse^> adresseFacturation;
+        System::Collections::Generic::List<Adresse^> adresseLivraison;
         int ^ societe;
     };
 
@@ -68,5 +68,10 @@ namespace data {
 
 
 /*
-ʕ•ᴥ•ʔ
+____
+|M   |
+|(\/)|
+| \/ |
+|   M|
+`----`
 */

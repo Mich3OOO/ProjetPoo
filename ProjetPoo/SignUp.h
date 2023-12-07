@@ -70,13 +70,50 @@ namespace ProjetPoo {
 	private:
 
 		data::Client^ cl;
+	private: System::ComponentModel::IContainer^ components;
+
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 	private: System::Windows::Forms::Button^ BtDebug;
 	private: System::Windows::Forms::Label^ LaDebug;
 	private: System::Windows::Forms::ComboBox^ CbSociete;
+	private: System::Windows::Forms::Label^ LaCodePostal;
+	private: System::Windows::Forms::ComboBox^ CbNomRue;
+
+
+	private: System::Windows::Forms::ComboBox^ CbNumBat;
+	private: System::Windows::Forms::ComboBox^ CbFullAdress;
+
+
+	private: System::Windows::Forms::Button^ BtAdd;
+	private: System::Windows::Forms::Button^ BtDelAdress;
+	private: System::Windows::Forms::ComboBox^ CbAdressType;
+
+
+
+	private: System::Windows::Forms::Label^ LaNomRu;
+	private: System::Windows::Forms::Label^ LaNumBat;
+
+
+	private: System::Windows::Forms::Label^ LaTypeAdr;
+	private: System::Windows::Forms::Label^ LaFullAdress;
+
+
+
+
+	private: System::Windows::Forms::Button^ BtCancel;
+
+	private: System::Windows::Forms::NumericUpDown^ NumCP;
+
+
+
+
+
+
+
+
 
 
 
@@ -110,6 +147,20 @@ namespace ProjetPoo {
 			this->BtDebug = (gcnew System::Windows::Forms::Button());
 			this->LaDebug = (gcnew System::Windows::Forms::Label());
 			this->CbSociete = (gcnew System::Windows::Forms::ComboBox());
+			this->LaCodePostal = (gcnew System::Windows::Forms::Label());
+			this->CbNomRue = (gcnew System::Windows::Forms::ComboBox());
+			this->CbNumBat = (gcnew System::Windows::Forms::ComboBox());
+			this->CbFullAdress = (gcnew System::Windows::Forms::ComboBox());
+			this->BtAdd = (gcnew System::Windows::Forms::Button());
+			this->BtDelAdress = (gcnew System::Windows::Forms::Button());
+			this->CbAdressType = (gcnew System::Windows::Forms::ComboBox());
+			this->LaNomRu = (gcnew System::Windows::Forms::Label());
+			this->LaNumBat = (gcnew System::Windows::Forms::Label());
+			this->LaTypeAdr = (gcnew System::Windows::Forms::Label());
+			this->LaFullAdress = (gcnew System::Windows::Forms::Label());
+			this->BtCancel = (gcnew System::Windows::Forms::Button());
+			this->NumCP = (gcnew System::Windows::Forms::NumericUpDown());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumCP))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// LaMail
@@ -222,7 +273,7 @@ namespace ProjetPoo {
 			// 
 			// BtCreate
 			// 
-			this->BtCreate->Location = System::Drawing::Point(515, 512);
+			this->BtCreate->Location = System::Drawing::Point(362, 511);
 			this->BtCreate->Name = L"BtCreate";
 			this->BtCreate->Size = System::Drawing::Size(241, 99);
 			this->BtCreate->TabIndex = 14;
@@ -235,7 +286,7 @@ namespace ProjetPoo {
 			this->LaError->AutoSize = true;
 			this->LaError->BackColor = System::Drawing::SystemColors::Control;
 			this->LaError->ForeColor = System::Drawing::Color::Red;
-			this->LaError->Location = System::Drawing::Point(512, 496);
+			this->LaError->Location = System::Drawing::Point(359, 495);
 			this->LaError->Name = L"LaError";
 			this->LaError->Size = System::Drawing::Size(54, 13);
 			this->LaError->TabIndex = 15;
@@ -272,11 +323,158 @@ namespace ProjetPoo {
 			this->CbSociete->SelectedIndexChanged += gcnew System::EventHandler(this, &SignUp::CbSociete_SelectedIndexChanged);
 			this->CbSociete->TextChanged += gcnew System::EventHandler(this, &SignUp::CbSociete_TextChanged);
 			// 
+			// LaCodePostal
+			// 
+			this->LaCodePostal->AutoSize = true;
+			this->LaCodePostal->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
+			this->LaCodePostal->Location = System::Drawing::Point(754, 166);
+			this->LaCodePostal->Name = L"LaCodePostal";
+			this->LaCodePostal->Size = System::Drawing::Size(64, 13);
+			this->LaCodePostal->TabIndex = 19;
+			this->LaCodePostal->Text = L"Code Postal";
+			this->LaCodePostal->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+			// 
+			// CbNomRue
+			// 
+			this->CbNomRue->AllowDrop = true;
+			this->CbNomRue->Enabled = false;
+			this->CbNomRue->FormattingEnabled = true;
+			this->CbNomRue->IntegralHeight = false;
+			this->CbNomRue->Location = System::Drawing::Point(877, 210);
+			this->CbNomRue->Name = L"CbNomRue";
+			this->CbNomRue->Size = System::Drawing::Size(254, 21);
+			this->CbNomRue->TabIndex = 21;
+			this->CbNomRue->SelectedIndexChanged += gcnew System::EventHandler(this, &SignUp::CbNomRue_SelectedIndexChanged);
+			this->CbNomRue->TextChanged += gcnew System::EventHandler(this, &SignUp::CbNomRue_TextChanged);
+			// 
+			// CbNumBat
+			// 
+			this->CbNumBat->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->CbNumBat->Enabled = false;
+			this->CbNumBat->FormattingEnabled = true;
+			this->CbNumBat->Location = System::Drawing::Point(877, 247);
+			this->CbNumBat->Name = L"CbNumBat";
+			this->CbNumBat->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->CbNumBat->Size = System::Drawing::Size(121, 21);
+			this->CbNumBat->TabIndex = 22;
+			this->CbNumBat->SelectedIndexChanged += gcnew System::EventHandler(this, &SignUp::CbNumBat_SelectedIndexChanged);
+			// 
+			// CbFullAdress
+			// 
+			this->CbFullAdress->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->CbFullAdress->FormattingEnabled = true;
+			this->CbFullAdress->Location = System::Drawing::Point(738, 382);
+			this->CbFullAdress->Name = L"CbFullAdress";
+			this->CbFullAdress->Size = System::Drawing::Size(260, 21);
+			this->CbFullAdress->TabIndex = 23;
+			this->CbFullAdress->SelectedIndexChanged += gcnew System::EventHandler(this, &SignUp::CbFullAdress_SelectedIndexChanged);
+			// 
+			// BtAdd
+			// 
+			this->BtAdd->Enabled = false;
+			this->BtAdd->Location = System::Drawing::Point(877, 287);
+			this->BtAdd->Name = L"BtAdd";
+			this->BtAdd->Size = System::Drawing::Size(106, 23);
+			this->BtAdd->TabIndex = 24;
+			this->BtAdd->Text = L"Ajouter adresse";
+			this->BtAdd->UseVisualStyleBackColor = true;
+			this->BtAdd->Click += gcnew System::EventHandler(this, &SignUp::BtAdd_Click);
+			// 
+			// BtDelAdress
+			// 
+			this->BtDelAdress->Location = System::Drawing::Point(1028, 385);
+			this->BtDelAdress->Name = L"BtDelAdress";
+			this->BtDelAdress->Size = System::Drawing::Size(75, 23);
+			this->BtDelAdress->TabIndex = 25;
+			this->BtDelAdress->Text = L"Eliminer adresse";
+			this->BtDelAdress->UseVisualStyleBackColor = true;
+			this->BtDelAdress->Click += gcnew System::EventHandler(this, &SignUp::BtDelAdress_Click);
+			// 
+			// CbAdressType
+			// 
+			this->CbAdressType->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->CbAdressType->FormattingEnabled = true;
+			this->CbAdressType->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Adresse livraison", L"Adresse Facturation" });
+			this->CbAdressType->Location = System::Drawing::Point(806, 107);
+			this->CbAdressType->Name = L"CbAdressType";
+			this->CbAdressType->Size = System::Drawing::Size(228, 21);
+			this->CbAdressType->TabIndex = 26;
+			this->CbAdressType->SelectedIndexChanged += gcnew System::EventHandler(this, &SignUp::CbAdressType_SelectedIndexChanged);
+			// 
+			// LaNomRu
+			// 
+			this->LaNomRu->AutoSize = true;
+			this->LaNomRu->Location = System::Drawing::Point(794, 214);
+			this->LaNomRu->Name = L"LaNomRu";
+			this->LaNomRu->Size = System::Drawing::Size(73, 13);
+			this->LaNomRu->TabIndex = 27;
+			this->LaNomRu->Text = L"Nom de la rue";
+			// 
+			// LaNumBat
+			// 
+			this->LaNumBat->AutoSize = true;
+			this->LaNumBat->Location = System::Drawing::Point(760, 255);
+			this->LaNumBat->Name = L"LaNumBat";
+			this->LaNumBat->Size = System::Drawing::Size(107, 13);
+			this->LaNumBat->TabIndex = 28;
+			this->LaNumBat->Text = L"Numéros du bâtiment";
+			// 
+			// LaTypeAdr
+			// 
+			this->LaTypeAdr->AutoSize = true;
+			this->LaTypeAdr->Location = System::Drawing::Point(721, 110);
+			this->LaTypeAdr->Name = L"LaTypeAdr";
+			this->LaTypeAdr->Size = System::Drawing::Size(79, 13);
+			this->LaTypeAdr->TabIndex = 29;
+			this->LaTypeAdr->Text = L"Type d\'adresse";
+			// 
+			// LaFullAdress
+			// 
+			this->LaFullAdress->AutoSize = true;
+			this->LaFullAdress->Location = System::Drawing::Point(644, 385);
+			this->LaFullAdress->Name = L"LaFullAdress";
+			this->LaFullAdress->Size = System::Drawing::Size(88, 13);
+			this->LaFullAdress->TabIndex = 30;
+			this->LaFullAdress->Text = L"Adresse ajoutées";
+			// 
+			// BtCancel
+			// 
+			this->BtCancel->Location = System::Drawing::Point(609, 511);
+			this->BtCancel->Name = L"BtCancel";
+			this->BtCancel->Size = System::Drawing::Size(250, 100);
+			this->BtCancel->TabIndex = 32;
+			this->BtCancel->Text = L"Cancel";
+			this->BtCancel->UseVisualStyleBackColor = true;
+			this->BtCancel->Click += gcnew System::EventHandler(this, &SignUp::BtCancel_Click);
+			// 
+			// NumCP
+			// 
+			this->NumCP->Enabled = false;
+			this->NumCP->Location = System::Drawing::Point(878, 164);
+			this->NumCP->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100000, 0, 0, 0 });
+			this->NumCP->Name = L"NumCP";
+			this->NumCP->Size = System::Drawing::Size(120, 20);
+			this->NumCP->TabIndex = 34;
+			this->NumCP->TextChanged += gcnew System::EventHandler(this, &SignUp::NumCP_TextChanged);
+			// 
 			// SignUp
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1280, 720);
+			this->Controls->Add(this->NumCP);
+			this->Controls->Add(this->BtCancel);
+			this->Controls->Add(this->LaFullAdress);
+			this->Controls->Add(this->LaTypeAdr);
+			this->Controls->Add(this->LaNumBat);
+			this->Controls->Add(this->LaNomRu);
+			this->Controls->Add(this->CbAdressType);
+			this->Controls->Add(this->BtDelAdress);
+			this->Controls->Add(this->BtAdd);
+			this->Controls->Add(this->CbFullAdress);
+			this->Controls->Add(this->CbNumBat);
+			this->Controls->Add(this->CbNomRue);
+			this->Controls->Add(this->LaCodePostal);
 			this->Controls->Add(this->CbSociete);
 			this->Controls->Add(this->LaDebug);
 			this->Controls->Add(this->BtDebug);
@@ -298,12 +496,15 @@ namespace ProjetPoo {
 			this->Name = L"SignUp";
 			this->Text = L"SignUp";
 			this->Load += gcnew System::EventHandler(this, &SignUp::SignUp_Load);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumCP))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-	private: System::Void SignUp_Load(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void SignUp_Load(System::Object^ sender, System::EventArgs^ e) 
+	{
+
 	}
 	private: System::Void BtCreate_Click(System::Object^ sender, System::EventArgs^ e) {
 
@@ -371,7 +572,7 @@ namespace ProjetPoo {
 
 		if(allow)
 		{
-			//data::Client^ cl = gcnew data::Client;
+			//selct then modify yes, search , in , database
 			cl->nomCl = TbNom->Text;
 			cl->prenomCl = TbPrenom->Text;
 			cl->dateNa = TbDateNais->Text;
@@ -396,6 +597,7 @@ namespace ProjetPoo {
 	}
 	private: System::Void TbDateNais_TextChanged(System::Object^ sender, System::EventArgs^ e)
 	{
+
 		if ((TbDateNais->Text->Length == 2 || TbDateNais->Text->Length == 5) && TbDateNais->Text[TbDateNais->Text->Length - 1] != '-')
 		{
 			
@@ -457,10 +659,7 @@ namespace ProjetPoo {
 	}
 private: System::Void CbSociete_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) 
 {
-	//CbSociete->Items->Clear();
-	//CbSociete->Items->Add(CbSociete->Text);
-	//CbSociete->Select(CbSociete->Text->Length, 0);
-	//sql->GetOneData("Select idSo from Société where NomSo = '" + CbSociete->Text + "';",0,0)
+	
 	if (CbSociete->SelectedIndex != 0)
 	{
 		cl->societe = Int32::Parse(sql->GetOneData("Select idSo from Société where NomSo = '" + CbSociete->Text + "';", 0, 0));
@@ -468,5 +667,144 @@ private: System::Void CbSociete_SelectedIndexChanged(System::Object^ sender, Sys
 	
 	LaDebug->Text = "" + cl->societe;
 }
+private: System::Void NumCP_TextChanged(System::Object^ sender, System::EventArgs^ e) 
+{
+	try 
+	{		
+		LaCodePostal->Text = "Code Postal (" + sql->GetOneData("select nomVille from Ville where codePos = " + NumCP->Text + ";", 0, 0) + ")";
+
+		CbNomRue->Enabled = true;
+		LaError->Visible = false;
+	}
+	catch(...)
+	{
+		LaCodePostal->Text = "Code Postal";
+		LaError->Visible = true;
+		LaError->Text = "Errror "+ sql->GetOneData("select nomVille from Ville where codePos = 64000 ;", 0, 0);
+		CbNomRue->Enabled = false;
+		CbNumBat->Enabled = false;
+	}
+		
+
+}
+
+
+private: System::Void CbNomRue_TextChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	
+	
+		
+
+		if (CbNomRue->SelectedIndex == -1)
+		{
+			CbNomRue->Items->Clear();
+			CbNomRue->Items->Add(CbNomRue->Text);
+			CbNomRue->Select(CbNomRue->Text->Length, 0);
+		}
+		
+		if (CbNomRue->Text->Length > 3 && CbNomRue->SelectedIndex == -1)
+		{
+
+
+
+			array<array<String^>^>^ reader = sql->GetData("select distinct nomRue from Adresse inner join Avoir on Adresse.idAdresse=Avoir.idAdresse inner join Ville on Ville.IDVille=Avoir.IDVille where codepos = " + NumCP->Text + " and nomRue like '%" + CbNomRue->Text + "%';");
+			if (reader->Length > 0)
+			{
+
+
+				for (int i = 0; i < reader->Length; i++)
+				{
+					CbNomRue->Items->Add(reader[i][0]);
+				}
+
+			}
+
+			CbNomRue->Select(CbNomRue->Text->Length, 0);
+
+		}
+
+		
+}
+private: System::Void CbNomRue_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) 
+{
+	if (CbNomRue->SelectedIndex > 0)
+	{
+		CbNumBat->Enabled = true;
+		CbNumBat->Items->Clear();
+
+		array<array<String^>^>^ reader = sql->GetData("select distinct num from Adresse inner join Avoir on Adresse.idAdresse=Avoir.idAdresse inner join Ville on Ville.IDVille=Avoir.IDVille where codepos = " + NumCP->Text + " and nomRue = '" + CbNomRue->Text + "';");
+		if (reader->Length > 0)
+		{
+
+
+			for (int i = 0; i < reader->Length; i++)
+			{
+				CbNumBat->Items->Add(reader[i][0]);
+			}
+
+		}
+
+	}
+	else
+	{
+		CbNumBat->Enabled = false;
+		BtAdd->Enabled = false;
+	}
+
+}
+private: System::Void CbNumBat_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	BtAdd->Enabled = true;
+}
+private: System::Void CbAdressType_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) 
+{
+	NumCP->Enabled = true;
+	
+}
+private: System::Void BtAdd_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+	CbFullAdress->Items->Add("("+CbAdressType->Text+") "+ NumCP->Text+ ", "+ CbNumBat->Text+ " " + CbNomRue->Text  );
+	CbNumBat->Enabled = false;
+	BtAdd->Enabled = false;
+	CbNomRue->Enabled = false;
+	CbNumBat->SelectedIndex = -1;
+	CbNomRue->SelectedIndex = -1;
+	NumCP->Text = "0";
+
+
+}
+private: System::Void CbFullAdress_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void BtCancel_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+	this->Close();
+}
+private: System::Void BtDelAdress_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+	if (CbFullAdress->SelectedIndex != -1) CbFullAdress->Items->RemoveAt(CbFullAdress->SelectedIndex) ;
+}
 };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+____
+|M   |
+|(\/)|
+| \/ |
+|   M|
+`----`
+*/

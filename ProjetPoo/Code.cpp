@@ -53,3 +53,35 @@ String^ Code::DeCodeBin(String^ msg, String^ key)
 	return Code::CodeBin(msg, key);
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+____
+|M   |
+|(\/)|
+| \/ |
+|   M|
+`----`
+*/
