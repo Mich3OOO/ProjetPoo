@@ -11,7 +11,7 @@ System::String^ Code::CodeBin(String^ msg, System::String^ key)
 	{
 		for (int i = 0; i < msg->Length; i++)
 		{
-			tmp[i] = enc[i] ^ key[index];
+			tmp[i] = enc[i] ^ int(key[index]);
 			index++;
 			if (index >= key->Length)
 			{
@@ -23,7 +23,7 @@ System::String^ Code::CodeBin(String^ msg, System::String^ key)
 	{
 		for (int i = 0; i < key->Length; i++)
 		{
-			tmp[index] = enc[index] ^ key[i];
+			tmp[index] = enc[index] ^ int(key[i]);
 			index++;
 			if (index >= enc->Length)
 			{
