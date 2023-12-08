@@ -22,6 +22,8 @@ namespace ProjetPoo {
 			this->sql = (gcnew SqlHandler());
 			cl = gcnew data::Client;
 			cl->societe = -1;
+			cl->adresseFacturation = gcnew System::Collections::Generic::List<data::Adresse^>();
+			cl->adresseLivraison = gcnew System::Collections::Generic::List<data::Adresse^>();
 			//
 			//TODO: Add the constructor code here
 			//
@@ -106,6 +108,10 @@ namespace ProjetPoo {
 	private: System::Windows::Forms::Button^ BtCancel;
 
 	private: System::Windows::Forms::NumericUpDown^ NumCP;
+	private: System::Windows::Forms::Label^ LaTypeAdresse2;
+
+	private: System::Windows::Forms::ComboBox^ CbTypeAdress2;
+
 
 
 
@@ -160,6 +166,8 @@ namespace ProjetPoo {
 			this->LaFullAdress = (gcnew System::Windows::Forms::Label());
 			this->BtCancel = (gcnew System::Windows::Forms::Button());
 			this->NumCP = (gcnew System::Windows::Forms::NumericUpDown());
+			this->LaTypeAdresse2 = (gcnew System::Windows::Forms::Label());
+			this->CbTypeAdress2 = (gcnew System::Windows::Forms::ComboBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumCP))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -400,6 +408,7 @@ namespace ProjetPoo {
 			this->CbAdressType->Size = System::Drawing::Size(228, 21);
 			this->CbAdressType->TabIndex = 26;
 			this->CbAdressType->SelectedIndexChanged += gcnew System::EventHandler(this, &SignUp::CbAdressType_SelectedIndexChanged);
+			
 			// 
 			// LaNomRu
 			// 
@@ -457,11 +466,34 @@ namespace ProjetPoo {
 			this->NumCP->TabIndex = 34;
 			this->NumCP->TextChanged += gcnew System::EventHandler(this, &SignUp::NumCP_TextChanged);
 			// 
+			// LaTypeAdresse2
+			// 
+			this->LaTypeAdresse2->AutoSize = true;
+			this->LaTypeAdresse2->Location = System::Drawing::Point(653, 358);
+			this->LaTypeAdresse2->Name = L"LaTypeAdresse2";
+			this->LaTypeAdresse2->Size = System::Drawing::Size(79, 13);
+			this->LaTypeAdresse2->TabIndex = 36;
+			this->LaTypeAdresse2->Text = L"Type d\'adresse";
+			// 
+			// CbTypeAdress2
+			// 
+			this->CbTypeAdress2->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->CbTypeAdress2->FormattingEnabled = true;
+			this->CbTypeAdress2->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Adresse livraison", L"Adresse Facturation" });
+			this->CbTypeAdress2->Location = System::Drawing::Point(738, 355);
+			this->CbTypeAdress2->Name = L"CbTypeAdress2";
+			this->CbTypeAdress2->Size = System::Drawing::Size(228, 21);
+			this->CbTypeAdress2->TabIndex = 35;
+			this->CbTypeAdress2->DropDown += gcnew System::EventHandler(this, &SignUp::CbTypeAdress2_DropDown);
+			this->CbTypeAdress2->SelectedIndex = 0;
+			// 
 			// SignUp
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1280, 720);
+			this->Controls->Add(this->LaTypeAdresse2);
+			this->Controls->Add(this->CbTypeAdress2);
 			this->Controls->Add(this->NumCP);
 			this->Controls->Add(this->BtCancel);
 			this->Controls->Add(this->LaFullAdress);
@@ -581,11 +613,11 @@ namespace ProjetPoo {
 			
 			if (cl->societe == -1)
 			{
-				sql->EnterData("insert into Client(nomCl,prenomCl,dateNa,mailCl,verifiCl) values('" + cl->nomCl + "','" + cl->prenomCl + "','" + cl->dateNa + "','" + cl->Mail + "','" + Code::CodeBin(cl->Mail, cl->MotDePasse) + "');");
+				//sql->EnterData("insert into Client(nomCl,prenomCl,dateNa,mailCl,verifiCl) values('" + cl->nomCl + "','" + cl->prenomCl + "','" + cl->dateNa + "','" + cl->Mail + "','" + Code::CodeBin(cl->Mail, cl->MotDePasse) + "');");
 			}
 			else
 			{
-				sql->EnterData("insert into Client(nomCl,prenomCl,dateNa,mailCl,verifiCl,idSo) values('" + cl->nomCl + "','" + cl->prenomCl + "','" + cl->dateNa + "','" + cl->Mail + "','" + Code::CodeBin(cl->Mail, cl->MotDePasse) + "',(select idSo from société where idSo = " + cl->societe + "));");
+				//sql->EnterData("insert into Client(nomCl,prenomCl,dateNa,mailCl,verifiCl,idSo) values('" + cl->nomCl + "','" + cl->prenomCl + "','" + cl->dateNa + "','" + cl->Mail + "','" + Code::CodeBin(cl->Mail, cl->MotDePasse) + "',(select idSo from société where idSo = " + cl->societe + "));");
 			}
 
 			
@@ -736,7 +768,6 @@ private: System::Void CbNomRue_SelectedIndexChanged(System::Object^ sender, Syst
 		if (reader->Length > 0)
 		{
 
-
 			for (int i = 0; i < reader->Length; i++)
 			{
 				CbNumBat->Items->Add(reader[i][0]);
@@ -763,6 +794,22 @@ private: System::Void CbAdressType_SelectedIndexChanged(System::Object^ sender, 
 private: System::Void BtAdd_Click(System::Object^ sender, System::EventArgs^ e) 
 {
 	CbFullAdress->Items->Add("("+CbAdressType->Text+") "+ NumCP->Text+ ", "+ CbNumBat->Text+ " " + CbNomRue->Text  );
+
+	System::Collections::Generic::List<data::Adresse^>^ tmp = cl->adresseFacturation;
+
+	if (CbAdressType->SelectedIndex == 0)
+	{
+		tmp = cl->adresseLivraison;
+	}
+	
+	tmp->Add(gcnew data::Adresse);
+	tmp[tmp->Count]->codePostal = Convert::ToInt32(NumCP->Text);
+	tmp[tmp->Count]->nomRue = CbNomRue->Text;
+	tmp[tmp->Count]->numero = Convert::ToInt32(CbNumBat->Text);
+
+
+
+
 	CbNumBat->Enabled = false;
 	BtAdd->Enabled = false;
 	CbNomRue->Enabled = false;
@@ -781,6 +828,20 @@ private: System::Void BtCancel_Click(System::Object^ sender, System::EventArgs^ 
 private: System::Void BtDelAdress_Click(System::Object^ sender, System::EventArgs^ e) 
 {
 	if (CbFullAdress->SelectedIndex != -1) CbFullAdress->Items->RemoveAt(CbFullAdress->SelectedIndex) ;
+}
+private: System::Void CbTypeAdress2_DropDown(System::Object^ sender, System::EventArgs^ e)
+{
+	CbFullAdress->Items->Clear();
+	if (CbTypeAdress2->SelectedIndex == 0)
+	{
+		for each (data::Adresse ^ a in cl->adresseLivraison)
+		{
+			CbFullAdress->Items->Add("a");
+		}
+		
+
+	}
+
 }
 };
 }

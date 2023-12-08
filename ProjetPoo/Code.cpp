@@ -1,20 +1,17 @@
 #include "Code.h"
 
-String^ Code::CodeBin(String^ msg, String^ key)
+System::String^ Code::CodeBin(String^ msg, System::String^ key)
 {
-	String^ r = "";
-
+	System::Text::Encoding^ encoder = System::Text::Encoding::ASCII;
+	array<Byte>^ enc = encoder->GetBytes(msg);
+	array<Byte>^ tmp = gcnew array<Byte>(msg->Length);
 	int index = 0;
-	char tmp;
 
 	if (msg->Length >= key->Length)
 	{
-		
-		for each (char c in msg)
+		for (int i = 0; i < msg->Length; i++)
 		{
-			tmp = (std::bitset<8>(c) ^ std::bitset<8>(key[index])).to_ullong();
-			
-			r += tmp ;
+			tmp[i] = enc[i] ^ key[index];
 			index++;
 			if (index >= key->Length)
 			{
@@ -24,32 +21,27 @@ String^ Code::CodeBin(String^ msg, String^ key)
 	}
 	else
 	{
-
-		for each (char c in key)
+		for (int i = 0; i < key->Length; i++)
 		{
-			tmp = (std::bitset<8>(c) ^ std::bitset<8>(msg[index])).to_ullong();
-
-			r += tmp;
+			tmp[index] = enc[index] ^ key[i];
 			index++;
-			if (index >= msg->Length)
+			if (index >= enc->Length)
 			{
 				index = 0;
 			}
 		}
-
 	}
 	
-
-
-
-
-
-
-	return r;
+	
+	
+	return encoder->GetString(tmp);
 
 }
-String^ Code::DeCodeBin(String^ msg, String^ key)
+
+
+System::String^ Code::DeCodeBin(System::String^ msg, System::String^ key)
 {
+	
 	return Code::CodeBin(msg, key);
 
 }

@@ -4,8 +4,9 @@ using namespace System;
 ref class Code
 {
 public:
-	static String^ CodeBin(String^ msg, String^ key);
-	static String^ DeCodeBin(String^ msg, String^ key);
+	
+	static System::String^ CodeBin(String^ msg, System::String^ key);
+	static System::String^ DeCodeBin(System::String^ msg, System::String^ key);
 };
 
 
