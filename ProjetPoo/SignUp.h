@@ -78,8 +78,8 @@ namespace ProjetPoo {
 		/// Required designer variable.
 		/// </summary>
 
-	private: System::Windows::Forms::Button^ BtDebug;
-	private: System::Windows::Forms::Label^ LaDebug;
+
+
 	private: System::Windows::Forms::ComboBox^ CbSociete;
 	private: System::Windows::Forms::Label^ LaCodePostal;
 	private: System::Windows::Forms::ComboBox^ CbNomRue;
@@ -150,8 +150,6 @@ namespace ProjetPoo {
 			this->TbDateNais = (gcnew System::Windows::Forms::TextBox());
 			this->BtCreate = (gcnew System::Windows::Forms::Button());
 			this->LaError = (gcnew System::Windows::Forms::Label());
-			this->BtDebug = (gcnew System::Windows::Forms::Button());
-			this->LaDebug = (gcnew System::Windows::Forms::Label());
 			this->CbSociete = (gcnew System::Windows::Forms::ComboBox());
 			this->LaCodePostal = (gcnew System::Windows::Forms::Label());
 			this->CbNomRue = (gcnew System::Windows::Forms::ComboBox());
@@ -301,25 +299,6 @@ namespace ProjetPoo {
 			this->LaError->Text = L"Error label";
 			this->LaError->Visible = false;
 			// 
-			// BtDebug
-			// 
-			this->BtDebug->Location = System::Drawing::Point(1013, 588);
-			this->BtDebug->Name = L"BtDebug";
-			this->BtDebug->Size = System::Drawing::Size(75, 23);
-			this->BtDebug->TabIndex = 16;
-			this->BtDebug->Text = L"Debug";
-			this->BtDebug->UseVisualStyleBackColor = true;
-			this->BtDebug->Click += gcnew System::EventHandler(this, &SignUp::button1_Click);
-			// 
-			// LaDebug
-			// 
-			this->LaDebug->AutoSize = true;
-			this->LaDebug->Location = System::Drawing::Point(1013, 526);
-			this->LaDebug->Name = L"LaDebug";
-			this->LaDebug->Size = System::Drawing::Size(51, 13);
-			this->LaDebug->TabIndex = 17;
-			this->LaDebug->Text = L"LaDebug";
-			// 
 			// CbSociete
 			// 
 			this->CbSociete->CausesValidation = false;
@@ -408,7 +387,6 @@ namespace ProjetPoo {
 			this->CbAdressType->Size = System::Drawing::Size(228, 21);
 			this->CbAdressType->TabIndex = 26;
 			this->CbAdressType->SelectedIndexChanged += gcnew System::EventHandler(this, &SignUp::CbAdressType_SelectedIndexChanged);
-			
 			// 
 			// LaNomRu
 			// 
@@ -484,7 +462,6 @@ namespace ProjetPoo {
 			this->CbTypeAdress2->Name = L"CbTypeAdress2";
 			this->CbTypeAdress2->Size = System::Drawing::Size(228, 21);
 			this->CbTypeAdress2->TabIndex = 35;
-			this->CbTypeAdress2->SelectedIndex = 0;
 			// 
 			// SignUp
 			// 
@@ -507,8 +484,6 @@ namespace ProjetPoo {
 			this->Controls->Add(this->CbNomRue);
 			this->Controls->Add(this->LaCodePostal);
 			this->Controls->Add(this->CbSociete);
-			this->Controls->Add(this->LaDebug);
-			this->Controls->Add(this->BtDebug);
 			this->Controls->Add(this->LaError);
 			this->Controls->Add(this->BtCreate);
 			this->Controls->Add(this->TbDateNais);
@@ -598,11 +573,20 @@ namespace ProjetPoo {
 			LaError->Visible = true;
 			allow = false;
 		}
-		
+		if (cl->adresseFacturation->Count == 0 || cl->adresseLivraison->Count == 0)
+		{
+			
+			LaError->Text = "erreur adresse manquante";
+			LaError->Visible = true;
+			allow = false;
+
+		}
 
 
 		if(allow)
 		{
+
+			
 			
 			cl->nomCl = TbNom->Text;
 			cl->prenomCl = TbPrenom->Text;
@@ -619,6 +603,17 @@ namespace ProjetPoo {
 				sql->EnterData("insert into Client(nomCl,prenomCl,dateNa,mailCl,verifiCl,idSo) values('" + cl->nomCl + "','" + cl->prenomCl + "','" + cl->dateNa + "','" + cl->Mail + "','" + Code::CodeBin(cl->Mail, cl->MotDePasse) + "',(select idSo from société where idSo = " + cl->societe + "));");
 			}
 
+			for each (data::Adresse^ a in cl->adresseFacturation)
+			{
+				sql->EnterData("insert into AdresseFacturation(idAdresse) values((select idAdresse from Adresse inner join Rue on Adresse.idRue=Rue.idRue inner join Ville on Ville.IDVille=adresse.IDVille where nomRue ='" + a->nomRue + "' and codePos = " + a->codePostal + " and num = " + a->numero + ")); ");
+				sql->EnterData("insert into Facturer(numCl,idAdresse) values((select numcl from Client where mailCl ='"+cl->Mail+"'),(select idAdresse from Adresse inner join Rue on Adresse.idRue=Rue.idRue inner join Ville on Ville.IDVille=adresse.IDVille where nomRue ='"+a->nomRue+"' and codePos = "+a->codePostal+" and num = "+a->numero +")); ");
+			}
+
+			for each (data::Adresse ^ a in cl->adresseLivraison)
+			{
+				sql->EnterData("insert into AdresseLivraison(idAdresse) values((select idAdresse from Adresse inner join Rue on Adresse.idRue=Rue.idRue inner join Ville on Ville.IDVille=adresse.IDVille where nomRue ='" + a->nomRue + "' and codePos = " + a->codePostal + " and num = " + a->numero + ")); ");
+				sql->EnterData("insert into Livrer(numCl,idAdresse) values((select numcl from Client where mailCl ='" + cl->Mail + "'),(select idAdresse from Adresse inner join Rue on Adresse.idRue=Rue.idRue inner join Ville on Ville.IDVille=adresse.IDVille where nomRue ='" + a->nomRue + "' and codePos = " + a->codePostal + " and num = " + a->numero + ")); ");
+			}
 			
 			this->Close();
 		}
@@ -641,17 +636,7 @@ namespace ProjetPoo {
 			TbDateNais->Select(TbDateNais->Text->Length, 0);
 		}
 	}
-	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) 
-	{
-
-		array<array<String^>^>^ reader = sql->GetData("Select NomSo from Société where NomSo like '%"+ CbSociete->Text +"%'");
-		LaDebug->Text = reader[0][1];
-
-		for (int i = 0; i < reader->Length; i++)
-		{
-			CbSociete->Items->Add(reader[i][0]);
-		}
-	}
+	
 		
 	private: System::Void CbSociete_TextChanged(System::Object^ sender, System::EventArgs^ e)
 	{
@@ -684,7 +669,7 @@ namespace ProjetPoo {
 			
 			CbSociete->Select(CbSociete->Text->Length, 0);
 
-			
+			CbSociete->DroppedDown = true;
 
 		}
 	}
@@ -696,27 +681,28 @@ private: System::Void CbSociete_SelectedIndexChanged(System::Object^ sender, Sys
 		cl->societe = Int32::Parse(sql->GetOneData("Select idSo from Société where NomSo = '" + CbSociete->Text + "';", 0, 0));
 	}
 	
-	LaDebug->Text = "" + cl->societe;
 }
 private: System::Void NumCP_TextChanged(System::Object^ sender, System::EventArgs^ e) 
 {
-	try 
-	{		
-		LaCodePostal->Text = "Code Postal (" + sql->GetOneData("select nomVille from Ville where codePos = " + NumCP->Text + ";", 0, 0) + ")";
-
-		CbNomRue->Enabled = true;
-		LaError->Visible = false;
-	}
-	catch(...)
+	if (NumCP->Text->Length == 5)
 	{
-		LaCodePostal->Text = "Code Postal";
-		LaError->Visible = true;
-		LaError->Text = "Errror "+ sql->GetOneData("select nomVille from Ville where codePos = 64000 ;", 0, 0);
-		CbNomRue->Enabled = false;
-		CbNumBat->Enabled = false;
-	}
-		
+		try
+		{
+			LaCodePostal->Text = "Code Postal (" + sql->GetOneData("select nomVille from Ville where codePos = " + NumCP->Text + ";", 0, 0) + ")";
 
+			CbNomRue->Enabled = true;
+			LaError->Visible = false;
+		}
+		catch (...)
+		{
+			LaCodePostal->Text = "Code Postal";
+			LaError->Visible = true;
+			LaError->Text = "Errror code postal invalide";
+			CbNomRue->Enabled = false;
+			CbNumBat->Enabled = false;
+		}
+
+	}
 }
 
 
@@ -735,11 +721,11 @@ private: System::Void CbNomRue_TextChanged(System::Object^ sender, System::Event
 		
 		if (CbNomRue->Text->Length > 3 && CbNomRue->SelectedIndex == -1)
 		{
-			CbNomRue->DroppedDown = true;
+			
 
 
 
-			array<array<String^>^>^ reader = sql->GetData("select distinct nomRue from Adresse inner join Avoir on Adresse.idAdresse=Avoir.idAdresse inner join Ville on Ville.IDVille=Avoir.IDVille where codepos = " + NumCP->Text + " and nomRue like '%" + CbNomRue->Text + "%';");
+			array<array<String^>^>^ reader = sql->GetData("select distinct nomRue from Adresse inner join Rue on Adresse.idRue=Rue.idRue inner join Ville on Ville.IDVille=adresse.IDVille where codepos = " + NumCP->Text + " and nomRue like '%" + CbNomRue->Text + "%';");
 			if (reader->Length > 0)
 			{
 
@@ -752,6 +738,7 @@ private: System::Void CbNomRue_TextChanged(System::Object^ sender, System::Event
 			}
 
 			CbNomRue->Select(CbNomRue->Text->Length, 0);
+			CbNomRue->DroppedDown = true;
 
 		}
 
@@ -764,7 +751,7 @@ private: System::Void CbNomRue_SelectedIndexChanged(System::Object^ sender, Syst
 		CbNumBat->Enabled = true;
 		CbNumBat->Items->Clear();
 
-		array<array<String^>^>^ reader = sql->GetData("select distinct num from Adresse inner join Avoir on Adresse.idAdresse=Avoir.idAdresse inner join Ville on Ville.IDVille=Avoir.IDVille where codepos = " + NumCP->Text + " and nomRue = '" + CbNomRue->Text + "';");
+		array<array<String^>^>^ reader = sql->GetData("select distinct num from Adresse inner join Rue on Adresse.idRue=Rue.idRue inner join Ville on Ville.IDVille=adresse.IDVille where codepos = " + NumCP->Text + " and nomRue = '" + CbNomRue->Text + "';");
 		if (reader->Length > 0)
 		{
 
