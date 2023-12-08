@@ -375,7 +375,7 @@ namespace ProjetPoo {
 			this->CbFullAdress->Name = L"CbFullAdress";
 			this->CbFullAdress->Size = System::Drawing::Size(260, 21);
 			this->CbFullAdress->TabIndex = 23;
-			this->CbFullAdress->SelectedIndexChanged += gcnew System::EventHandler(this, &SignUp::CbFullAdress_SelectedIndexChanged);
+			this->CbFullAdress->DropDown += gcnew System::EventHandler(this, &SignUp::CbFullAdress_DropDown);
 			// 
 			// BtAdd
 			// 
@@ -484,7 +484,6 @@ namespace ProjetPoo {
 			this->CbTypeAdress2->Name = L"CbTypeAdress2";
 			this->CbTypeAdress2->Size = System::Drawing::Size(228, 21);
 			this->CbTypeAdress2->TabIndex = 35;
-			this->CbTypeAdress2->DropDown += gcnew System::EventHandler(this, &SignUp::CbTypeAdress2_DropDown);
 			this->CbTypeAdress2->SelectedIndex = 0;
 			// 
 			// SignUp
@@ -604,7 +603,7 @@ namespace ProjetPoo {
 
 		if(allow)
 		{
-			//selct then modify yes, search , in , database
+			
 			cl->nomCl = TbNom->Text;
 			cl->prenomCl = TbPrenom->Text;
 			cl->dateNa = TbDateNais->Text;
@@ -613,11 +612,11 @@ namespace ProjetPoo {
 			
 			if (cl->societe == -1)
 			{
-				//sql->EnterData("insert into Client(nomCl,prenomCl,dateNa,mailCl,verifiCl) values('" + cl->nomCl + "','" + cl->prenomCl + "','" + cl->dateNa + "','" + cl->Mail + "','" + Code::CodeBin(cl->Mail, cl->MotDePasse) + "');");
+				sql->EnterData("insert into Client(nomCl,prenomCl,dateNa,mailCl,verifiCl) values('" + cl->nomCl + "','" + cl->prenomCl + "','" + cl->dateNa + "','" + cl->Mail + "','" + Code::CodeBin(cl->Mail, cl->MotDePasse) + "');");
 			}
 			else
 			{
-				//sql->EnterData("insert into Client(nomCl,prenomCl,dateNa,mailCl,verifiCl,idSo) values('" + cl->nomCl + "','" + cl->prenomCl + "','" + cl->dateNa + "','" + cl->Mail + "','" + Code::CodeBin(cl->Mail, cl->MotDePasse) + "',(select idSo from société where idSo = " + cl->societe + "));");
+				sql->EnterData("insert into Client(nomCl,prenomCl,dateNa,mailCl,verifiCl,idSo) values('" + cl->nomCl + "','" + cl->prenomCl + "','" + cl->dateNa + "','" + cl->Mail + "','" + Code::CodeBin(cl->Mail, cl->MotDePasse) + "',(select idSo from société where idSo = " + cl->societe + "));");
 			}
 
 			
@@ -736,6 +735,7 @@ private: System::Void CbNomRue_TextChanged(System::Object^ sender, System::Event
 		
 		if (CbNomRue->Text->Length > 3 && CbNomRue->SelectedIndex == -1)
 		{
+			CbNomRue->DroppedDown = true;
 
 
 
@@ -803,9 +803,9 @@ private: System::Void BtAdd_Click(System::Object^ sender, System::EventArgs^ e)
 	}
 	
 	tmp->Add(gcnew data::Adresse);
-	tmp[tmp->Count]->codePostal = Convert::ToInt32(NumCP->Text);
-	tmp[tmp->Count]->nomRue = CbNomRue->Text;
-	tmp[tmp->Count]->numero = Convert::ToInt32(CbNumBat->Text);
+	tmp[tmp->Count-1]->codePostal = Convert::ToInt32(NumCP->Text);
+	tmp[tmp->Count-1]->nomRue = CbNomRue->Text;
+	tmp[tmp->Count-1]->numero = Convert::ToInt32(CbNumBat->Text);
 
 
 
@@ -819,33 +819,57 @@ private: System::Void BtAdd_Click(System::Object^ sender, System::EventArgs^ e)
 
 
 }
-private: System::Void CbFullAdress_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-}
 private: System::Void BtCancel_Click(System::Object^ sender, System::EventArgs^ e) 
 {
 	this->Close();
 }
 private: System::Void BtDelAdress_Click(System::Object^ sender, System::EventArgs^ e) 
 {
-	if (CbFullAdress->SelectedIndex != -1) CbFullAdress->Items->RemoveAt(CbFullAdress->SelectedIndex) ;
+
+
+
+	if (CbFullAdress->SelectedIndex != -1)
+	{
+
+		if (CbTypeAdress2->SelectedIndex == 0)
+		{
+			cl->adresseLivraison->RemoveAt(CbFullAdress->SelectedIndex);
+		}
+		else
+		{
+			cl->adresseFacturation->RemoveAt(CbFullAdress->SelectedIndex);
+		}
+
+		CbFullAdress->Items->RemoveAt(CbFullAdress->SelectedIndex);
+	}
+
+	
 }
-private: System::Void CbTypeAdress2_DropDown(System::Object^ sender, System::EventArgs^ e)
+private: System::Void CbFullAdress_DropDown(System::Object^ sender, System::EventArgs^ e)
 {
 	CbFullAdress->Items->Clear();
 	if (CbTypeAdress2->SelectedIndex == 0)
 	{
 		for each (data::Adresse ^ a in cl->adresseLivraison)
 		{
-			CbFullAdress->Items->Add("a");
+			CbFullAdress->Items->Add(a->codePostal+ ", "+ a->numero + " "+a->nomRue);
 		}
 		
 
+	}
+	else
+	{
+		for each (data::Adresse ^ a in cl->adresseFacturation)
+		{
+			CbFullAdress->Items->Add(a->codePostal + ", " + a->numero + " " + a->nomRue);
+		}
 	}
 
 }
 };
 }
-
+/*TODO: conneceter base de données partie adresse 
+arreglar dropdown*/
 
 
 
