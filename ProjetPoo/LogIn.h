@@ -289,12 +289,16 @@ namespace ProjetPoo {
 			
 				label1->Visible = false;
 				label4->Visible = true;
+				command->CommandText = "SELECT numCl FROM Client WHERE mailCl = '" + BoxMail->Text + "'; ";
+				ProjetPoo::EspaceClient^ ESCL = gcnew ProjetPoo::EspaceClient(Convert::ToInt32( command->ExecuteScalar()));
 				connexion->Close();
-				this->Close();
-
-				ProjetPoo::EspaceClient^ ESCL = gcnew ProjetPoo::EspaceClient();
+				
+				
+				this->Hide();
 				ESCL->ShowDialog();
-				//this->ShowDialog();
+				this->Close();
+				
+				
 
 
 			}

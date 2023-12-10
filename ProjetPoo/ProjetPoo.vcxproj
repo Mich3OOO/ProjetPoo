@@ -142,6 +142,9 @@
     <ClCompile Include="SqlHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="EspaceClient.resx">
+      <DependentUpon>EspaceClient.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SignUp.resx">
       <DependentUpon>SignUp.h</DependentUpon>
     </EmbeddedResource>
