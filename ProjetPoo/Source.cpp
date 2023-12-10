@@ -1,4 +1,4 @@
-#include "SignUp.h"
+#include "LogIn.h"
 #include "SqlHandler.h"
 
 using namespace System;
@@ -11,7 +11,7 @@ int main()
     
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(0);
-    ProjetPoo::SignUp form;
+    ProjetPoo::LogIn form;
     Application::Run(% form);
     return 1;
     

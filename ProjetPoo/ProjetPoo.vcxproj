@@ -115,6 +115,9 @@
   <ItemGroup>
     <ClInclude Include="Code.h" />
     <ClInclude Include="data.h" />
+    <ClInclude Include="LogIn.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="SignUp.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -129,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code.cpp" />
+    <ClCompile Include="LogIn.cpp" />
     <ClCompile Include="SignUp.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SqlHandler.cpp" />
