@@ -58,6 +58,7 @@ namespace ProjetPoo {
 
 	private: System::Windows::Forms::TextBox^ BoxMdp;
 	private: System::Windows::Forms::Label^ label4;
+	private: System::Windows::Forms::Button^ BtHidePW;
 
 
 	protected:
@@ -91,13 +92,15 @@ namespace ProjetPoo {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->BoxMdp = (gcnew System::Windows::Forms::TextBox());
 			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->BtHidePW = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// buttonregister
 			// 
-			this->buttonregister->Location = System::Drawing::Point(443, 302);
+			this->buttonregister->Location = System::Drawing::Point(332, 245);
+			this->buttonregister->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->buttonregister->Name = L"buttonregister";
-			this->buttonregister->Size = System::Drawing::Size(99, 30);
+			this->buttonregister->Size = System::Drawing::Size(74, 24);
 			this->buttonregister->TabIndex = 0;
 			this->buttonregister->Text = L"S\'inscrire";
 			this->buttonregister->UseVisualStyleBackColor = true;
@@ -105,27 +108,30 @@ namespace ProjetPoo {
 			// 
 			// BoxMail
 			// 
-			this->BoxMail->Location = System::Drawing::Point(369, 174);
+			this->BoxMail->Location = System::Drawing::Point(277, 141);
+			this->BoxMail->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->BoxMail->Name = L"BoxMail";
-			this->BoxMail->Size = System::Drawing::Size(155, 22);
+			this->BoxMail->Size = System::Drawing::Size(117, 20);
 			this->BoxMail->TabIndex = 2;
 			this->BoxMail->TextChanged += gcnew System::EventHandler(this, &LogIn::BoxMail_TextChanged);
 			// 
 			// labelTitre
 			// 
 			this->labelTitre->AutoSize = true;
-			this->labelTitre->Location = System::Drawing::Point(252, 100);
+			this->labelTitre->Location = System::Drawing::Point(189, 81);
+			this->labelTitre->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->labelTitre->Name = L"labelTitre";
-			this->labelTitre->Size = System::Drawing::Size(69, 16);
+			this->labelTitre->Size = System::Drawing::Size(55, 13);
 			this->labelTitre->TabIndex = 3;
 			this->labelTitre->Text = L"S\'identifier";
 			this->labelTitre->Click += gcnew System::EventHandler(this, &LogIn::LabelTitre_Click);
 			// 
 			// buttonLogin
 			// 
-			this->buttonLogin->Location = System::Drawing::Point(241, 302);
+			this->buttonLogin->Location = System::Drawing::Point(181, 245);
+			this->buttonLogin->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->buttonLogin->Name = L"buttonLogin";
-			this->buttonLogin->Size = System::Drawing::Size(100, 30);
+			this->buttonLogin->Size = System::Drawing::Size(75, 24);
 			this->buttonLogin->TabIndex = 6;
 			this->buttonLogin->Text = L"S\'enregister";
 			this->buttonLogin->UseVisualStyleBackColor = true;
@@ -134,54 +140,70 @@ namespace ProjetPoo {
 			// LabelMail
 			// 
 			this->LabelMail->AutoSize = true;
-			this->LabelMail->Location = System::Drawing::Point(252, 180);
+			this->LabelMail->Location = System::Drawing::Point(189, 146);
+			this->LabelMail->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->LabelMail->Name = L"LabelMail";
-			this->LabelMail->Size = System::Drawing::Size(32, 16);
+			this->LabelMail->Size = System::Drawing::Size(26, 13);
 			this->LabelMail->TabIndex = 7;
 			this->LabelMail->Text = L"Mail";
 			// 
 			// LabelMdp
 			// 
 			this->LabelMdp->AutoSize = true;
-			this->LabelMdp->Location = System::Drawing::Point(252, 216);
+			this->LabelMdp->Location = System::Drawing::Point(189, 176);
+			this->LabelMdp->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->LabelMdp->Name = L"LabelMdp";
-			this->LabelMdp->Size = System::Drawing::Size(89, 16);
+			this->LabelMdp->Size = System::Drawing::Size(71, 13);
 			this->LabelMdp->TabIndex = 8;
 			this->LabelMdp->Text = L"Mot de passe";
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(252, 259);
+			this->label1->Location = System::Drawing::Point(189, 210);
+			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(175, 16);
+			this->label1->Size = System::Drawing::Size(137, 13);
 			this->label1->TabIndex = 9;
 			this->label1->Text = L"L\'adresse mail n\'existe pas !";
 			this->label1->Click += gcnew System::EventHandler(this, &LogIn::label1_Click);
 			// 
 			// BoxMdp
 			// 
-			this->BoxMdp->Location = System::Drawing::Point(369, 210);
+			this->BoxMdp->Location = System::Drawing::Point(277, 171);
+			this->BoxMdp->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->BoxMdp->Name = L"BoxMdp";
-			this->BoxMdp->Size = System::Drawing::Size(155, 22);
+			this->BoxMdp->Size = System::Drawing::Size(117, 20);
 			this->BoxMdp->TabIndex = 5;
 			this->BoxMdp->TextChanged += gcnew System::EventHandler(this, &LogIn::BoxMdp_TextChanged);
 			// 
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(252, 259);
+			this->label4->Location = System::Drawing::Point(189, 210);
+			this->label4->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(127, 16);
+			this->label4->Size = System::Drawing::Size(103, 13);
 			this->label4->TabIndex = 12;
 			this->label4->Text = L"Connection réussie !";
 			this->label4->Click += gcnew System::EventHandler(this, &LogIn::label4_Click);
 			// 
+			// BtHidePW
+			// 
+			this->BtHidePW->Location = System::Drawing::Point(412, 168);
+			this->BtHidePW->Name = L"BtHidePW";
+			this->BtHidePW->Size = System::Drawing::Size(44, 23);
+			this->BtHidePW->TabIndex = 38;
+			this->BtHidePW->Text = L"👁";
+			this->BtHidePW->UseVisualStyleBackColor = true;
+			this->BtHidePW->Click += gcnew System::EventHandler(this, &LogIn::BtHidePW_Click);
+			// 
 			// LogIn
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(837, 459);
+			this->ClientSize = System::Drawing::Size(628, 373);
+			this->Controls->Add(this->BtHidePW);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->LabelMdp);
@@ -191,6 +213,7 @@ namespace ProjetPoo {
 			this->Controls->Add(this->labelTitre);
 			this->Controls->Add(this->BoxMail);
 			this->Controls->Add(this->buttonregister);
+			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->Name = L"LogIn";
 			this->Text = L"LogIn";
 			this->Load += gcnew System::EventHandler(this, &LogIn::LogIn_Load);
@@ -290,7 +313,7 @@ namespace ProjetPoo {
 				label1->Visible = false;
 				label4->Visible = true;
 				command->CommandText = "SELECT numCl FROM Client WHERE mailCl = '" + BoxMail->Text + "'; ";
-				ProjetPoo::EspaceClient^ ESCL = gcnew ProjetPoo::EspaceClient(Convert::ToInt32( command->ExecuteScalar()));
+				ProjetPoo::EspaceClient^ ESCL = gcnew ProjetPoo::EspaceClient(Convert::ToInt32(command->ExecuteScalar()));
 				connexion->Close();
 				
 				
@@ -320,5 +343,17 @@ namespace ProjetPoo {
 
 	private: System::Void label4_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
-	};
+	private: System::Void BtHidePW_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		if (BoxMdp->PasswordChar == '*')
+		{
+			BoxMdp->PasswordChar = NULL;
+		}
+		else
+		{
+			BoxMdp->PasswordChar = '*';
+			
+		}
+	}
+};
 }

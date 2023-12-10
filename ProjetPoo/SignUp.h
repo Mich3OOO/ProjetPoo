@@ -111,6 +111,8 @@ namespace ProjetPoo {
 	private: System::Windows::Forms::Label^ LaTypeAdresse2;
 
 	private: System::Windows::Forms::ComboBox^ CbTypeAdress2;
+	private: System::Windows::Forms::Button^ BtHidePW;
+
 
 
 
@@ -166,6 +168,7 @@ namespace ProjetPoo {
 			this->NumCP = (gcnew System::Windows::Forms::NumericUpDown());
 			this->LaTypeAdresse2 = (gcnew System::Windows::Forms::Label());
 			this->CbTypeAdress2 = (gcnew System::Windows::Forms::ComboBox());
+			this->BtHidePW = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NumCP))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -251,6 +254,7 @@ namespace ProjetPoo {
 			// 
 			this->TbConfirmerMotDePasse->Location = System::Drawing::Point(324, 177);
 			this->TbConfirmerMotDePasse->Name = L"TbConfirmerMotDePasse";
+			this->TbConfirmerMotDePasse->PasswordChar = '*';
 			this->TbConfirmerMotDePasse->Size = System::Drawing::Size(129, 20);
 			this->TbConfirmerMotDePasse->TabIndex = 9;
 			// 
@@ -258,6 +262,7 @@ namespace ProjetPoo {
 			// 
 			this->TbMotDePasse->Location = System::Drawing::Point(324, 140);
 			this->TbMotDePasse->Name = L"TbMotDePasse";
+			this->TbMotDePasse->PasswordChar = '*';
 			this->TbMotDePasse->Size = System::Drawing::Size(129, 20);
 			this->TbMotDePasse->TabIndex = 8;
 			// 
@@ -463,11 +468,22 @@ namespace ProjetPoo {
 			this->CbTypeAdress2->Size = System::Drawing::Size(228, 21);
 			this->CbTypeAdress2->TabIndex = 35;
 			// 
+			// BtHidePW
+			// 
+			this->BtHidePW->Location = System::Drawing::Point(471, 140);
+			this->BtHidePW->Name = L"BtHidePW";
+			this->BtHidePW->Size = System::Drawing::Size(44, 23);
+			this->BtHidePW->TabIndex = 37;
+			this->BtHidePW->Text = L"👁";
+			this->BtHidePW->UseVisualStyleBackColor = true;
+			this->BtHidePW->Click += gcnew System::EventHandler(this, &SignUp::button1_Click);
+			// 
 			// SignUp
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1280, 720);
+			this->Controls->Add(this->BtHidePW);
 			this->Controls->Add(this->LaTypeAdresse2);
 			this->Controls->Add(this->CbTypeAdress2);
 			this->Controls->Add(this->NumCP);
@@ -852,6 +868,19 @@ private: System::Void CbFullAdress_DropDown(System::Object^ sender, System::Even
 		}
 	}
 
+}
+private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+	if (TbMotDePasse->PasswordChar == '*')
+	{
+		TbMotDePasse->PasswordChar = NULL;
+		TbConfirmerMotDePasse->PasswordChar = NULL;
+	}
+	else
+	{
+		TbMotDePasse->PasswordChar = '*';
+		TbConfirmerMotDePasse->PasswordChar = '*';
+	}
 }
 };
 }
