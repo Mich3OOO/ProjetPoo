@@ -5,7 +5,7 @@
 SqlHandler::SqlHandler()
 {
 	
-	Connection = gcnew SqlConnection("Server = localHost\\SQLEXPRESS; Database = Magasin;  Integrated Security=True;");
+	Connection = gcnew SqlConnection("Server = localHost\\SQLEXPRESS; Database = Projetpoo;  Integrated Security=True;");
 	
 }
 

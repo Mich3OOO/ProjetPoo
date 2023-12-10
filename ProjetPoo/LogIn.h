@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "SqlHandler.h"
 #include "SignUp.h"
+#include "EspaceClient.h" 
 
 namespace ProjetPoo {
 
@@ -202,7 +203,7 @@ namespace ProjetPoo {
 
 #pragma endregion
 		void ExecuterCommandeSQL(String^ query) { // Pour éxectuer une commande SQL
-			String^ connectionString = "Data Source=localHost\\SQLEXPRESS;Initial Catalog=Magasin;Integrated Security=True;Encrypt=False;";
+			String^ connectionString = "Data Source=localHost\\SQLEXPRESS;Initial Catalog=Projetpoo;Integrated Security=True;Encrypt=False;";
 
 			try
 			{
@@ -223,7 +224,7 @@ namespace ProjetPoo {
 
 		bool EmailExistsInDatabase(String^ mail) {
 
-			String^ connection = "Data Source=localHost\\SQLEXPRESS;Initial Catalog=Magasin;Integrated Security=True;Encrypt=False;";
+			String^ connection = "Data Source=localHost\\SQLEXPRESS;Initial Catalog=Projetpoo;Integrated Security=True;Encrypt=False;";
 			SqlConnection^ connexion = gcnew SqlConnection(connection);
 			connexion->Open();
 
@@ -274,7 +275,7 @@ namespace ProjetPoo {
 		// Vérifier si l'adresse e-mail existe dans la base de données
 		if (EmailExistsInDatabase(emailToCheck)) {
 
-			String^ connection = "Data Source=localHost\\SQLEXPRESS;Initial Catalog=Magasin;Integrated Security=True;Encrypt=False;";
+			String^ connection = "Data Source=localHost\\SQLEXPRESS;Initial Catalog=Projetpoo;Integrated Security=True;Encrypt=False;";
 			SqlConnection^ connexion = gcnew SqlConnection(connection);
 			connexion->Open();
 
@@ -290,6 +291,12 @@ namespace ProjetPoo {
 				label4->Visible = true;
 				connexion->Close();
 				this->Close();
+
+				ProjetPoo::EspaceClient^ ESCL = gcnew ProjetPoo::EspaceClient();
+				ESCL->ShowDialog();
+				//this->ShowDialog();
+
+
 			}
 
 
