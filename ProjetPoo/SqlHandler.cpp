@@ -5,7 +5,7 @@
 SqlHandler::SqlHandler()
 {
 	
-	Connection = gcnew SqlConnection("Server = MICH3000\\SQLEXPRESS; Database = Magasin;  Integrated Security=True;");
+	Connection = gcnew SqlConnection("Server = localHost\\SQLEXPRESS; Database = Magasin;  Integrated Security=True;");
 	
 }
 
@@ -18,32 +18,48 @@ SqlHandler::~SqlHandler()
 
 void SqlHandler::EnterData(String^ Querry)
 {		
-	//System::String^ querry = "insert into Client(nomCl,prenomCl,dateNa,mailCl,verifiCl) values('"+Cl->nomCl+"','"+Cl->prenomCl+"','"+Cl->dateNa +"','"+Cl->Mail+"','" + Code::CodeBin(Cl->Mail, Cl->MotDePasse) + "');";
-	SqlCommand^ Command = gcnew SqlCommand(Querry,Connection);
+	if (Connection->State == System::Data::ConnectionState::Open)
+	{
+		Connection->Close();
+	}
 	
-	Connection->Open();
-	Command->ExecuteNonQuery();
-	Connection->Close();
+	SqlCommand^ Command = gcnew SqlCommand(Querry,Connection);
+	try
+	{
+		Connection->Open();
+		Command->ExecuteNonQuery();
+		Connection->Close();
+	}
+	catch (Exception^ ex)
+	{
+		System::Windows::Forms::MessageBox::Show("Une erreur s'est produite : " + ex->Message, "Erreur", System::Windows::Forms::MessageBoxButtons::OK, System::Windows::Forms::MessageBoxIcon::Error);
+	}
+	
 	
 
 }
 
 array<array<String^>^>^ SqlHandler::GetData(String^ Querry)
 {
+
 	
-	if (Connection->State == System::Data::ConnectionState::Open)
-	{
-		Connection->Close();
-	}
-	//System::String^ querry = "Select * from " + Tab + ";";
 	
 	SqlCommand^ Command = gcnew SqlCommand(Querry, Connection);
 	array<array<String^>^>^ r;
+
+
+	try
+	{
 	Connection->Open();
 	
 	SqlDataReader^ reader = Command->ExecuteReader();
 	r = DataToStr(reader);
 	Connection->Close();
+	}
+	catch (Exception^ ex)
+	{
+		System::Windows::Forms::MessageBox::Show("Une erreur s'est produite : " + ex->Message, "Erreur", System::Windows::Forms::MessageBoxButtons::OK, System::Windows::Forms::MessageBoxIcon::Error);
+	}
 	
 	
 	

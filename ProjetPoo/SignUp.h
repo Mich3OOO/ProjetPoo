@@ -552,10 +552,10 @@ namespace ProjetPoo {
 			LaError->Visible = true;
 			allow = false;
 		}
-		if (TbMail->Text->Length == 0)
+		if (TbMail->Text->Length == 0 || sql->GetData("select mailCl from Client where mailcl = '"+ TbMail->Text +"';")->Length !=0)
 		{
 			LaMail->ForeColor = System::Drawing::Color::Red;
-			LaError->Text = "erreur donnée(s) manquante(s)";
+			LaError->Text = "erreur donnée(s) manquante(s) ou Mail déjàs enregistrée";
 			LaError->Visible = true;
 			allow = false;
 		}
@@ -605,13 +605,13 @@ namespace ProjetPoo {
 
 			for each (data::Adresse^ a in cl->adresseFacturation)
 			{
-				sql->EnterData("insert into AdresseFacturation(idAdresse) values((select idAdresse from Adresse inner join Rue on Adresse.idRue=Rue.idRue inner join Ville on Ville.IDVille=adresse.IDVille where nomRue ='" + a->nomRue + "' and codePos = " + a->codePostal + " and num = " + a->numero + ")); ");
+				
 				sql->EnterData("insert into Facturer(numCl,idAdresse) values((select numcl from Client where mailCl ='"+cl->Mail+"'),(select idAdresse from Adresse inner join Rue on Adresse.idRue=Rue.idRue inner join Ville on Ville.IDVille=adresse.IDVille where nomRue ='"+a->nomRue+"' and codePos = "+a->codePostal+" and num = "+a->numero +")); ");
 			}
 
 			for each (data::Adresse ^ a in cl->adresseLivraison)
 			{
-				sql->EnterData("insert into AdresseLivraison(idAdresse) values((select idAdresse from Adresse inner join Rue on Adresse.idRue=Rue.idRue inner join Ville on Ville.IDVille=adresse.IDVille where nomRue ='" + a->nomRue + "' and codePos = " + a->codePostal + " and num = " + a->numero + ")); ");
+			
 				sql->EnterData("insert into Livrer(numCl,idAdresse) values((select numcl from Client where mailCl ='" + cl->Mail + "'),(select idAdresse from Adresse inner join Rue on Adresse.idRue=Rue.idRue inner join Ville on Ville.IDVille=adresse.IDVille where nomRue ='" + a->nomRue + "' and codePos = " + a->codePostal + " and num = " + a->numero + ")); ");
 			}
 			

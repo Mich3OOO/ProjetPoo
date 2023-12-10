@@ -202,7 +202,7 @@ namespace ProjetPoo {
 
 #pragma endregion
 		void ExecuterCommandeSQL(String^ query) { // Pour éxectuer une commande SQL
-			String^ connectionString = "Data Source=DESKTOP-26U0O27\\SQLEXPRESS;Initial Catalog=ProjetPoo1;Integrated Security=True;Encrypt=False;";
+			String^ connectionString = "Data Source=localHost\\SQLEXPRESS;Initial Catalog=Magasin;Integrated Security=True;Encrypt=False;";
 
 			try
 			{
@@ -223,11 +223,11 @@ namespace ProjetPoo {
 
 		bool EmailExistsInDatabase(String^ mail) {
 
-			String^ connection = "Data Source=DESKTOP-26U0O27\\SQLEXPRESS;Initial Catalog=ProjetPoo1;Integrated Security=True;Encrypt=False;";
+			String^ connection = "Data Source=localHost\\SQLEXPRESS;Initial Catalog=Magasin;Integrated Security=True;Encrypt=False;";
 			SqlConnection^ connexion = gcnew SqlConnection(connection);
 			connexion->Open();
 
-			String^ query = "SELECT COUNT(*) FROM Client WHERE mailCl = '" + BoxMail->Text + "'";
+			String^ query = "SELECT COUNT(*) FROM Client WHERE mailCl = '" + BoxMail->Text + "';";
 
 			SqlCommand^ command = gcnew SqlCommand(query, connexion);
 			// Exécutez la requéte SQL et récupérez le résultat
@@ -274,7 +274,7 @@ namespace ProjetPoo {
 		// Vérifier si l'adresse e-mail existe dans la base de données
 		if (EmailExistsInDatabase(emailToCheck)) {
 
-			String^ connection = "Data Source=DESKTOP-26U0O27\\SQLEXPRESS;Initial Catalog=ProjetPoo1;Integrated Security=True;Encrypt=False;";
+			String^ connection = "Data Source=localHost\\SQLEXPRESS;Initial Catalog=Magasin;Integrated Security=True;Encrypt=False;";
 			SqlConnection^ connexion = gcnew SqlConnection(connection);
 			connexion->Open();
 
@@ -283,28 +283,24 @@ namespace ProjetPoo {
 			SqlCommand^ command = gcnew SqlCommand(query, connexion);
 			String^ Crypt = Convert::ToString(command->ExecuteScalar());
 			
-			BoxMdp->Text;
+			if (BoxMail->Text == Code::DeCodeBin(Crypt, BoxMdp->Text))
+			{
+			
+				label1->Visible = false;
+				label4->Visible = true;
+				connexion->Close();
+				this->Close();
+			}
 
-			// Exécutez la requéte SQL et récupérez le résultat
 
-
-			//int resultCount = Convert::ToInt32(command->ExecuteScalar());
-			label1->Visible = false;
-
-
-
-
-			label4->Visible = true;
-			connexion->Close();
+			
 
 		}
 		else {
 			label4->Visible = false;
 			label1->Visible = true;
 
-			// L'adresse e-mail n'existe pas dans la base de données
-			// Faites ce que vous devez faire dans ce cas
-
+			
 		}
 	}
 	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
