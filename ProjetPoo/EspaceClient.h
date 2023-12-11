@@ -311,6 +311,7 @@ namespace ProjetPoo {
 		if (Panier->SelectedIndex != -1)
 		{
 			PrixTotalInt->Text = (Convert::ToDouble(PrixTotalInt->Text) - LPanier[Panier->SelectedIndex]->prixHT).ToString();
+			PrixTotalIntTTC->Text = (round((Convert::ToDouble(PrixTotalInt->Text) * (1 + TVA)) * 100) / 100).ToString();
 			LPanier->RemoveAt(Panier->SelectedIndex);
 			Panier->Items->RemoveAt(Panier->SelectedIndex);
 		}
@@ -359,11 +360,37 @@ private: System::Void btCommender_Click(System::Object^ sender, System::EventArg
 		pp.ShowDialog();
 		this->Show();
 
-		if (pp.getTP() != NONE)
+		if (pp.getTP() == NONE)
 		{
-			//insert commande
-			//insert paiement
+
+			DateTime now = DateTime::Now;
+
+			String^ Now = now.Month + "-" + now.Day + "-" + now.Year;
+			LabelTotal->Text =Now;
+
+			//ref
+			String^ ref = sql->GetOneData("select nomCl from Client;", 0, 0)->Split(0, 1)[0] + sql->GetOneData("select prenomCl from Client;", 0, 0)->Split(0, 1)[0] + now.Year.ToString() + sql->GetOneData("select max(idCom) from Commande;", 0, 0);// -> fix null exp ; todo ville 3l;
+			
+			//total tva
+			String^ totTVA = (round((Convert::ToDouble(PrixTotalInt->Text) *  TVA) * 100) / 100).ToString()->Replace(',', '.');
+
+			sql->EnterData("insert into Commande(refCom,datelivP,totalHT,totalTVA,totalTTC,dateEm,dateRe,numCl) values('" + ref + "','"+ Now +"',"+PrixTotalInt->Text->Replace(',','.') + "," + totTVA + "," + PrixTotalIntTTC->Text->Replace(',', '.') + ",'" + Now + "','" + Now + "',(select numCl from Client where numCl =" + idCl.ToString() + "));");
+			
+			
+
+			for each (data::Article ^ a in LPanier)
+			{
+				sql->EnterData("insert into contenir(idCom, arRref, nb, prixHTMT, prixTTCMT) values((select idCom from Commande where refCom ='"+ref+"'),(select arRref from catalogue where arRref="+a->idArt.ToString() + "),"+ a->nb.ToString() +","+ a->prixHT.ToString()->Replace(',', '.') + "," + (round(a->prixHT*TVA*100)/100).ToString()->Replace(',', '.') + ");");
+
+			}
+			String^ tmp;
+
+			
+
+
 			//insert art
+
+			//insert paiement
 		}
 
 	}
