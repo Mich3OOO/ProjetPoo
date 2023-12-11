@@ -24,14 +24,7 @@ namespace data {
         int ^ societe;
     };
 
-    ref struct Personnel {
-
-        String ^ nomP;
-        String ^ prenomP;
-        String ^ dateEm;
-        String ^ superviseur;
-        Adresse adresse;
-    };
+    
 
     ref struct Commande {
 
@@ -42,12 +35,10 @@ namespace data {
     };
 
     ref struct Article {
-
+        int idArt;
         String ^ nomArt;
-        int stock;
-        float seuilReap;
         float prixHT;
-        float  seuil;
+        int nb;
     };
 
 }
