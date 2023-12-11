@@ -277,8 +277,9 @@ namespace ProjetPoo {
 	private: System::Void buttonregister_Click(System::Object^ sender, System::EventArgs^ e) 
 	{
 		ProjetPoo::SignUp SU;
+		this->Hide();
 		SU.ShowDialog();
-		//Application::Run(gcnew ProjetPoo::SignUp);
+		this->Show();
 		
 	}
 	private: System::Void LabelMail_Click(System::Object^ sender, System::EventArgs^ e) {

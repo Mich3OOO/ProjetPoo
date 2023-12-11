@@ -159,9 +159,9 @@ namespace ProjetPoo {
 			this->LabelQTY->Location = System::Drawing::Point(429, 298);
 			this->LabelQTY->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->LabelQTY->Name = L"LabelQTY";
-			this->LabelQTY->Size = System::Drawing::Size(48, 13);
+			this->LabelQTY->Size = System::Drawing::Size(53, 13);
 			this->LabelQTY->TabIndex = 16;
-			this->LabelQTY->Text = L"Quantit�";
+			this->LabelQTY->Text = L"Quantitée";
 			// 
 			// OutStock
 			// 
@@ -367,10 +367,22 @@ private: System::Void btCommender_Click(System::Object^ sender, System::EventArg
 
 			String^ Now = now.Month + "-" + now.Day + "-" + now.Year;
 
+
+
 			//ref
-			String^ ref = sql->GetOneData("select nomCl from Client;", 0, 0)->Split(0, 1)[0] + sql->GetOneData("select prenomCl from Client;", 0, 0)->Split(0, 1)[0] + now.Year.ToString() + sql->GetOneData("select max(idCom) from Commande;", 0, 0);// -> fix null exp ; todo ville 3l;
+			String^ max;
+			if (sql->GetData("select max(idCom) from Commande;")->Length != 0)
+			{
+				max = sql->GetOneData("select max(idCom) from Commande;", 0, 0);
+			}
+			else
+			{
+				max = "0";
+			}
+
+			String^ ref = sql->GetOneData("select nomCl from Client where numCl =" + idCl.ToString() + " ;", 0, 0)->Substring(0, 2) + sql->GetOneData("select prenomCl from Client where numCl =" + idCl.ToString() + " ;", 0, 0)->Substring(0, 2) + now.Year.ToString() + sql->GetOneData("Select nomville from client inner join livrer on livrer.numCl = Client.numCl inner join adresse on adresse.idadresse=livrer.idadresse inner join ville on ville.idville=adresse.idville where Client.numCl =" + idCl.ToString() + " ;",0,0)->Substring(0,2) + max;
 			
-			//total tva
+			
 			String^ totTVA = (round((Convert::ToDouble(PrixTotalInt->Text) *  TVA) * 100) / 100).ToString()->Replace(',', '.');
 
 			sql->EnterData("insert into Commande(refCom,datelivP,totalHT,totalTVA,totalTTC,dateEm,dateRe,numCl) values('" + ref + "','"+ Now +"',"+PrixTotalInt->Text->Replace(',','.') + "," + totTVA + "," + PrixTotalIntTTC->Text->Replace(',', '.') + ",'" + Now + "','" + Now + "',(select numCl from Client where numCl =" + idCl.ToString() + "));");

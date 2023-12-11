@@ -639,6 +639,7 @@ namespace ProjetPoo {
 		buttonAnnuler->Visible = false;
 		labelRemerciement->Visible = true;
 		labelErreur->Visible = false;
+		this->Close();
 
 	}
 	private: System::Void buttonConfCB_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -673,6 +674,7 @@ namespace ProjetPoo {
 			buttonFacture->Visible = true;
 			labelFacture->Visible = true;
 			labelErreur->Visible = false;
+			this->Close();
 		}
 
 	}
@@ -704,6 +706,7 @@ namespace ProjetPoo {
 			buttonFacture->Visible = true;
 			labelFacture->Visible = true;
 			labelErreur->Visible = false;
+			this->Close();
 		}
 
 

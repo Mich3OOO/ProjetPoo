@@ -682,10 +682,10 @@ namespace ProjetPoo {
 				}
 
 			}
-			
+			CbSociete->DroppedDown = true;
 			CbSociete->Select(CbSociete->Text->Length, 0);
 
-			CbSociete->DroppedDown = true;
+			
 
 		}
 	}
@@ -753,8 +753,9 @@ private: System::Void CbNomRue_TextChanged(System::Object^ sender, System::Event
 
 			}
 
-			CbNomRue->Select(CbNomRue->Text->Length, 0);
+			
 			CbNomRue->DroppedDown = true;
+			CbNomRue->Select(CbNomRue->Text->Length, 0);
 
 		}
 
