@@ -92,7 +92,6 @@ CREATE TABLE Commande(
    idCom INT IDENTITY,
    refCom VARCHAR(50),
    dateLivP DATE NOT NULL,
-   total DECIMAL(15,2) NOT NULL,
    totalHT DECIMAL(15,2) NOT NULL,
    totalTVA DECIMAL(15,2) NOT NULL,
    totalTTC DECIMAL(15,2) NOT NULL,
