@@ -61,3 +61,4 @@ VALUES
   ( 'Livre "Introduction à linformatique"', '20', '5', '25'),
   ( 'Station daccueil USB-C', '12', '4', '80'),
   ( 'Imprimante 3D professionnelle', '8', '2', '500');
+insert into Moyen_Paiement(moyenp) values('Carte Bleu'),('PayPal'),('Liquide');
