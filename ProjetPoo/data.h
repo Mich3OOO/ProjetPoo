@@ -6,6 +6,8 @@ using namespace System;
 
 namespace data {
 
+    
+
     ref struct Adresse {
 
         int numero;

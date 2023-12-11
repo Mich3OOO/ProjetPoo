@@ -121,6 +121,9 @@
     <ClInclude Include="LogIn.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Paiement.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="SignUp.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -137,6 +140,7 @@
     <ClCompile Include="Code.cpp" />
     <ClCompile Include="EspaceClient.cpp" />
     <ClCompile Include="LogIn.cpp" />
+    <ClCompile Include="Paiement.cpp" />
     <ClCompile Include="SignUp.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SqlHandler.cpp" />

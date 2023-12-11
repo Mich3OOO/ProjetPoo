@@ -1,5 +1,7 @@
 ﻿#include "SqlHandler.h"
 #include "data.h"
+#include "Paiement.h"
+
 namespace ProjetPoo {
 
 	using namespace System;
