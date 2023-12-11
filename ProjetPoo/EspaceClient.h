@@ -360,13 +360,12 @@ private: System::Void btCommender_Click(System::Object^ sender, System::EventArg
 		pp.ShowDialog();
 		this->Show();
 
-		if (pp.getTP() == NONE)
+		if (pp.getTP() != NONE)
 		{
 
 			DateTime now = DateTime::Now;
 
 			String^ Now = now.Month + "-" + now.Day + "-" + now.Year;
-			LabelTotal->Text =Now;
 
 			//ref
 			String^ ref = sql->GetOneData("select nomCl from Client;", 0, 0)->Split(0, 1)[0] + sql->GetOneData("select prenomCl from Client;", 0, 0)->Split(0, 1)[0] + now.Year.ToString() + sql->GetOneData("select max(idCom) from Commande;", 0, 0);// -> fix null exp ; todo ville 3l;
@@ -385,12 +384,49 @@ private: System::Void btCommender_Click(System::Object^ sender, System::EventArg
 			}
 			String^ tmp;
 
+			switch (pp.getTP())
+			{
+			case CB:
+				tmp = "Carte Bleu";
+				break;
+			case PAYPAL:
+				tmp = "PayPal";
+				break;
+			case LIQUIDE:
+				tmp = "Liquide";
+				break;
+			default:
+				break;
+			}
+
+			sql->EnterData("insert into payer(idCom,idp,datesP,Sold) values((select idCom from Commande where refCom ='" + ref + "'),(select idp from Moyen_Paiement where moyenp ='" + tmp + "'),'" + Now + "'," + PrixTotalIntTTC->Text->Replace(',', '.') + ");");
+
+			System::IO::StreamWriter^ file = gcnew System::IO::StreamWriter(ref + ".txt");
 			
+			for each (String ^ s in sql->GetData("select numCl, nomCl, prenomCl, nomSo from Client left join Société on Société.idSo = Client.idSo where numCl = " + idCl.ToString() + ";")[0])
+			{
+				file->Write(s);
+				file->Write("  ");
+			}
+			file->Write("\n\n\n");
+			for each (data::Article ^ a in LPanier)
+			{
+				file->WriteLine(a->nomArt +" X" + a->nb.ToString() + "........." + a->prixHT.ToString() + "€");
+			}
+			file->Write("\n\n\n");
+			file->WriteLine("Prix total HT : " + PrixTotalInt->Text);
+			file->WriteLine("Prix total TTC : " + PrixTotalIntTTC->Text);
+			file->WriteLine("Méthode de paiement " + tmp);
+
+			file->Close();
+
+			LPanier->Clear();
+			Panier->Items->Clear();
+			PrixTotalInt->Text = "0";
+			PrixTotalIntTTC->Text = "0";
 
 
-			//insert art
 
-			//insert paiement
 		}
 
 	}
@@ -400,3 +436,19 @@ private: System::Void btCommender_Click(System::Object^ sender, System::EventArg
 };
 }
 
+
+
+
+
+
+
+
+
+/*
+____
+|M   |
+|(\/)|
+| \/ |
+|   M|
+`----`
+*/

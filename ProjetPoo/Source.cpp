@@ -11,7 +11,7 @@ int main()
     
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(0);
-    ProjetPoo::EspaceClient form(1);
+    ProjetPoo::LogIn form;
     Application::Run(% form);
     return 1;
     
