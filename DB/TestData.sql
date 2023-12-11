@@ -62,3 +62,4 @@ VALUES
   ( 'Station daccueil USB-C', '12', '4', '80'),
   ( 'Imprimante 3D professionnelle', '8', '2', '500');
 insert into Moyen_Paiement(moyenp) values('Carte Bleu'),('PayPal'),('Liquide');
+insert into société(nomSo,idAdresse) values('Aperture Science',(select idadresse from adresse where idadresse=14)),('Cave Johnson.inc',(select idadresse from adresse where idadresse=16));
