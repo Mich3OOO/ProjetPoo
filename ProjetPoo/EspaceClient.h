@@ -349,7 +349,26 @@ namespace ProjetPoo {
 private: System::Void Catalogue_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 
-private: System::Void btCommender_Click(System::Object^ sender, System::EventArgs^ e) {
+private: System::Void btCommender_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+	if (LPanier->Count != 0)
+	{
+		ProjetPoo::Paiement pp;
+		this->Hide();
+
+		pp.ShowDialog();
+		this->Show();
+
+		if (pp.getTP() != NONE)
+		{
+			//insert commande
+			//insert paiement
+			//insert art
+		}
+
+	}
+	
+	
 }
 };
 }
